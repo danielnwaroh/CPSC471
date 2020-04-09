@@ -5,12 +5,16 @@ create table bloodstorageapi.volunteer (
     Name varchar(50) not null,
     Role varchar(50) not null,
     Address varchar(50) not null,
-    PhoneNumber varchar(10) not null 
+    PhoneNumber varchar(10) not null,
+    ClinicID int not null,
+    foreign key (ClinicID) references bloodstorageapi.clinic(ClinicID)
 );
 
 create table bloodstorageapi.donation (
 	DonationDate date not null,
-    PointsEarned int not null
+    PointsEarned int not null,
+    DonorID int not null,
+    foreign key (DonorID) references bloodstorageapi.donor(DonorID)                           
 );
 
 create table bloodstorageapi.bloodstorage (
@@ -22,7 +26,13 @@ create table bloodstorageapi.bloodstorage (
 
 create table bloodstorageapi.events (
 	EventDate date not null primary key,
-    EventLocation varchar(50) not null
+    EventLocation varchar(50) not null,
+    VolunteerID varchar(50),
+    ClinicID int not null,
+    EmployeeID int not null,
+    foreign key (VolunteerID) references bloodstorageapi.volunteer(VolunteerID),
+    foreign key (ClinicID) references bloodstorageapi.clinic(ClinicID),
+    foreign key (EmployeeID) references bloodstorageapi.employee(EmployeeID)                                   
 );
 
 create table bloodstorageapi.hospital (
@@ -35,7 +45,9 @@ create table bloodstorageapi.request (
 	RequestID int not null primary key auto_increment,
     DateBy date not null,
     DateReq date not null,
-    DateCompleted date not null
+    ClinicID int not null,
+    DateCompleted date not null,
+    foreign key (ClinicID) references bloodstorageapi.clinic(ClinicID)
 );
 
 create table bloodstorageapi.prize (
@@ -63,5 +75,8 @@ create table bloodstorageapi.employee (
 create table bloodstorageapi.clinic (
 	PhoneNumber int not null,
 	ClinicID int not null primary key auto_increment,
-    ClinicLocation varchar(50) not null
+    ClinicLocation varchar(50) not null,
+    EmployeeID int not null,
+    foreign key (EmployeeID) references bloodstorageapi.employee(EmployeeID)
+                                    
 );
