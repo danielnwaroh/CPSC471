@@ -51,7 +51,7 @@ create table bloodstorageapi.bloodstorage (
 create table bloodstorageapi.events (
 	EventDate date not null primary key,
     EventLocation varchar(50) not null,
-    VolunteerID varchar(50),
+    VolunteerID int,
     ClinicID int not null,
     EmployeeID int not null,
     foreign key (VolunteerID) references bloodstorageapi.volunteer(VolunteerID),
