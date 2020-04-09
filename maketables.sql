@@ -1,5 +1,29 @@
 create database bloodstorageapi;
 
+create table bloodstorageapi.employee (
+    EmployeeID int not null primary key auto_increment,
+    Address varchar(50) not null,
+    PhoneNumber varchar(10) not null,
+    Name varchar(50) not null,
+    Role varchar(50) not null
+);
+
+create table bloodstorageapi.clinic (
+    PhoneNumber int not null,
+    ClinicID int not null primary key auto_increment,
+    ClinicLocation varchar(50) not null,
+    EmployeeID int not null,
+    foreign key (EmployeeID) references bloodstorageapi.employee(EmployeeID)
+);
+
+create table bloodstorageapi.donor (
+    DonorID int not null primary key auto_increment,
+    Name varchar(50) not null,
+    BloodType varchar(3) not null,
+    RHFactor varchar(10) not null,
+    Points int not null
+);
+
 create table bloodstorageapi.volunteer (
 	VolunteerID int not null primary key auto_increment,
     Name varchar(50) not null,
@@ -56,27 +80,5 @@ create table bloodstorageapi.prize (
     PointsPrice int not null
 );
 
-create table bloodstorageapi.donor (
-	DonorID int not null primary key auto_increment,
-    Name varchar(50) not null,
-    BloodType varchar(3) not null,
-    RHFactor varchar(10) not null,
-    Points int not null
-);
 
-create table bloodstorageapi.employee (
-	EmployeeID int not null primary key auto_increment,
-    Address varchar(50) not null,
-    PhoneNumber varchar(10) not null,
-    Name varchar(50) not null,
-    Role varchar(50) not null
-);
 
-create table bloodstorageapi.clinic (
-	PhoneNumber int not null,
-	ClinicID int not null primary key auto_increment,
-    ClinicLocation varchar(50) not null,
-    EmployeeID int not null,
-    foreign key (EmployeeID) references bloodstorageapi.employee(EmployeeID)
-                                    
-);
