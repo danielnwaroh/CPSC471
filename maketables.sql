@@ -1,4 +1,6 @@
-create table Volunteer (
+create database bloodstorageapi;
+
+create table bloodstorageapi.volunteer (
 	VolunteerID int not null primary key auto_increment,
     Name varchar(50) not null,
     Role varchar(50) not null,
@@ -6,43 +8,43 @@ create table Volunteer (
     PhoneNumber varchar(10) not null 
 );
 
-create table Donation (
+create table bloodstorageapi.donation (
 	DonationDate date not null,
     PointsEarned int not null
 );
 
-create table BloodStorage (
+create table bloodstorageapi.bloodstorage (
 	BID int not null primary key auto_increment,
     ShelfLife date not null,
     BloodType varchar(3) not null,
     Shipped boolean not null
 );
 
-create table Events (
+create table bloodstorageapi.events (
 	EventDate date not null primary key,
     EventLocation varchar(50) not null
 );
 
-create table Hospital (
+create table bloodstorageapi.hospital (
 	HID int not null primary key auto_increment,
     HospitalLocation varchar(50) not null,
     HospitalName varchar(50) not null
 );
 
-create table Request (
+create table bloodstorageapi.request (
 	RequestID int not null primary key auto_increment,
     DateBy date not null,
     DateReq date not null,
     DateCompleted date not null
 );
 
-create table Prize (
+create table bloodstorageapi.prize (
 	PID int not null primary key auto_increment,
     Quantity int not null,
     PointsPrice int not null
 );
 
-create table Donor (
+create table bloodstorageapi.donor (
 	DonorID int not null primary key auto_increment,
     Name varchar(50) not null,
     BloodType varchar(3) not null,
@@ -50,7 +52,7 @@ create table Donor (
     Points int not null
 );
 
-create table Employee (
+create table bloodstorageapi.employee (
 	EmployeeID int not null primary key auto_increment,
     Address varchar(50) not null,
     PhoneNumber varchar(10) not null,
@@ -58,7 +60,7 @@ create table Employee (
     Role varchar(50) not null
 );
 
-create table Clinic (
+create table bloodstorageapi.clinic (
 	PhoneNumber int not null,
 	ClinicID int not null primary key auto_increment,
     ClinicLocation varchar(50) not null
