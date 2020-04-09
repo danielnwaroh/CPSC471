@@ -1,4 +1,4 @@
-create database bloodstorageapi;
+create database if not exists bloodstorageapi;
 
 create table bloodstorageapi.volunteer (
 	VolunteerID int not null primary key auto_increment,
@@ -35,7 +35,7 @@ create table bloodstorageapi.request (
 	RequestID int not null primary key auto_increment,
     DateBy date not null,
     DateReq date not null,
-    DateCompleted date not null
+    DateCompleted date
 );
 
 create table bloodstorageapi.prize (
