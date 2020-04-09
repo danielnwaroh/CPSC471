@@ -1,4 +1,4 @@
-create database bloodstorageapi;
+create database if not exists bloodstorageapi;
 
 create table bloodstorageapi.employee (
     EmployeeID int not null primary key auto_increment,
