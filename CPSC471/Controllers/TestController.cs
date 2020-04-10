@@ -1,6 +1,10 @@
-﻿using CPSC471.Models;
+﻿using System;
+using CPSC471.Models;
 using Microsoft.AspNetCore.Mvc;
+using MySql.Data;
 using MySql.Data.MySqlClient;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace CPSC471.Controllers
 {
@@ -14,6 +18,7 @@ namespace CPSC471.Controllers
         public string Index()
         {
             MySqlConnection conn = DBcon.getconn();
+            Console.WriteLine("testing");
             
             return "test";
         }

@@ -1,10 +1,10 @@
 ﻿{
   "version": "1.0.0",
   "restore": {
-    "projectUniqueName": "C:\\Users\\amrit\\RiderProjects\\CPSC471\\CPSC471\\CPSC471.csproj",
+    "projectUniqueName": "C:\\Users\\danie\\Documents\\GitHub\\CPSC471\\CPSC471\\CPSC471.csproj",
     "projectName": "CPSC471",
-    "projectPath": "C:\\Users\\amrit\\RiderProjects\\CPSC471\\CPSC471\\CPSC471.csproj",
-    "outputPath": "C:\\Users\\amrit\\RiderProjects\\CPSC471\\CPSC471\\obj\\",
+    "projectPath": "C:\\Users\\danie\\Documents\\GitHub\\CPSC471\\CPSC471\\CPSC471.csproj",
+    "outputPath": "C:\\Users\\danie\\Documents\\GitHub\\CPSC471\\CPSC471\\obj\\",
     "projectStyle": "PackageReference",
     "originalTargetFrameworks": [
       "netcoreapp3.1"
@@ -34,6 +34,10 @@
         "MySql.Data.Entity": {
           "target": "Package",
           "version": "[7.0.7-m61, )"
+        },
+        "System.Data.SqlClient": {
+          "target": "Package",
+          "version": "[4.8.1, )"
         }
       },
       "imports": [
