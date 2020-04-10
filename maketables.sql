@@ -5,15 +5,16 @@ create table bloodstorageapi.employee (
     Address varchar(50) not null,
     PhoneNumber varchar(10) not null,
     Name varchar(50) not null,
-    Role varchar(50) not null
+    Role varchar(50) not null,
+    ClinicID int not null
 );
 
 create table bloodstorageapi.clinic (
     PhoneNumber int not null,
     ClinicID int not null primary key auto_increment,
     ClinicLocation varchar(50) not null,
-    EmployeeID int not null,
-    foreign key (EmployeeID) references bloodstorageapi.employee(EmployeeID)
+    ManagerID int not null,
+    foreign key (ManagerID) references bloodstorageapi.employee(EmployeeID)
 );
 
 create table bloodstorageapi.donor (
@@ -70,8 +71,10 @@ create table bloodstorageapi.request (
     DateBy date not null,
     DateReq date not null,
     ClinicID int not null,
-    DateCompleted date not null,
-    foreign key (ClinicID) references bloodstorageapi.clinic(ClinicID)
+    DateCompleted date,
+    HospitalID int not null,
+    foreign key (ClinicID) references bloodstorageapi.clinic(ClinicID),
+    foreign key (HospitalID) references bloodstorageapi.hospital(HID)
 );
 
 create table bloodstorageapi.prize (
