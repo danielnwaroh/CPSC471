@@ -20,7 +20,7 @@ namespace CPSC471.Models
         public static MySqlConnection getconn()
         {
             MySqlConnection conn =
-                new MySqlConnection("server=localhost;dns-srv=false;user id=root;password=Olgaland13.;database=bloodstorageapi");
+                new MySqlConnection("server=localhost;dns-srv=false;user id=root;password=password;database=bloodstorageapi");
             try
             {
                 conn.Open();

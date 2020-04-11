@@ -94,17 +94,19 @@ namespace CPSC471.Controllers
         }
         // GET api/TestController/Event/{EventID}/
         
-        // POST api/TestController/AddHospital/{HID}/{hospitallocation}/{hospitalname}
-        [HttpPut]
-        // [Route("AddHospital/{HID}/{hospitallocation}/{hospitalname}")]
-        [Route("AddHospital")]
-        public void AddNewHospital(string s)
+        // POST api/TestController/AddHospital
+        [HttpPost]
+        // [Route("AddHospital")]
+        [Route("AddHospital/{HID}")]
+        [ActionName("AddHospital")]
+        public string AddNewHospital(string s)
         {
             Console.WriteLine(s);
-            // string hospitalLocation = (string)emp["HospitalLocation"];
-            // string hosptialName = (string)emp["HospitalName"];
+            //string hospitalLocation = (string)emp["HospitalLocation"];
+            //string hosptialName = (string)emp["HospitalName"];
             Console.WriteLine("12345");
-            
+            return s;
+
         }
     }
 }
