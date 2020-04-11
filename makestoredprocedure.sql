@@ -46,3 +46,13 @@ BEGIN
 END //
 
 DELIMITER ;
+
+DROP procedure IF EXISTS `getAllEmployeesOfClinic`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getAllEmployeesOfClinic`(IN paramClinicID int)
+BEGIN
+	SELECT * FROM employee
+    WHERE ClinicID = paramClinicID;
+END //
+
+DELIMITER ;

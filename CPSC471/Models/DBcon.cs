@@ -134,6 +134,32 @@ namespace CPSC471.Models
             Console.WriteLine(json);
             return json;
         }
+
+        public static string RetrieveAllEmployeesOfClinic(MySqlConnection conn, int clinicId, string stp)
+        {
+            MySqlCommand cmd = new MySqlCommand(stp, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@paramClinicID", clinicId);
+            MySqlDataReader rdr = cmd.ExecuteReader();
+
+            IList<Employee> employeeInformation = new List<Employee>();
+            while (rdr.Read())
+            {
+                employeeInformation.Add(new Employee
+                {
+                    EmployeeID = Convert.ToInt32(rdr[0]), 
+                    Address = Convert.ToString(rdr[1]), 
+                    PhoneNumber = Convert.ToString(rdr[2]),
+                    Name = Convert.ToString(rdr[3]),
+                    Role = Convert.ToString(rdr[4]),
+                    ClinicID = Convert.ToInt32(rdr[5])
+                });
+            }
+            rdr.Close();
+            string json = JsonConvert.SerializeObject(new {results = employeeInformation}, Formatting.Indented);
+            Console.WriteLine(json);
+            return json;
+        }
         
         
     }

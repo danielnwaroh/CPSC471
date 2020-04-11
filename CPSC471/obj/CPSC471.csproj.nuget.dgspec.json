@@ -38,6 +38,10 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+              "target": "Package",
+              "version": "[5.0.0-preview.2.20167.3, )"
+            },
             "MySql.Data": {
               "target": "Package",
               "version": "[8.0.19, )"

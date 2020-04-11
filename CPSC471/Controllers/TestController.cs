@@ -4,6 +4,7 @@ using CPSC471.Models;
 using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace CPSC471.Controllers
 {
@@ -83,8 +84,27 @@ namespace CPSC471.Controllers
             return json;
         }
         
-        // GET api/TestController/Employee/{ClinicID}/
-        
+        // GET api/TestController/EmployeesAtClinic/1/
+        [HttpGet]
+        [Route("EmployeesAtClinic/{ClinicID}/")]
+        public string GetEmployeesAtClinic(int clinicId)
+        {
+            string json = DBcon.RetrieveAllEmployeesOfClinic(conn, clinicId, "getAllEmployeesOfClinic");
+            return json;
+        }
         // GET api/TestController/Event/{EventID}/
+        
+        // POST api/TestController/AddHospital/{HID}/{hospitallocation}/{hospitalname}
+        [HttpPut]
+        // [Route("AddHospital/{HID}/{hospitallocation}/{hospitalname}")]
+        [Route("AddHospital")]
+        public void AddNewHospital(string s)
+        {
+            Console.WriteLine(s);
+            // string hospitalLocation = (string)emp["HospitalLocation"];
+            // string hosptialName = (string)emp["HospitalName"];
+            Console.WriteLine("12345");
+            
+        }
     }
 }
