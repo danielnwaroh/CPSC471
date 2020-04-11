@@ -11,15 +11,14 @@ namespace CPSC471.Controllers
     [ApiController]
     public class TestController : Controller
     {
+        MySqlConnection conn = DBcon.getconn();
         // GET: /api/TestController/Test/
         [HttpGet]
         [Route("Test")]
         public string Index()
         {
-            MySqlConnection conn = DBcon.getconn();
+            // MySqlConnection conn = DBcon.getconn();
             
-            // Console.WriteLine(DBcon.RetrieveDonors(conn));
-            Dictionary<object, object> dict = DBcon.RetrieveDonors(conn);
             Console.WriteLine("testing");
             
             return "test";
@@ -28,16 +27,64 @@ namespace CPSC471.Controllers
         // GET api/TestController/GetDonorsByRHFactor?rhf=positive
         [HttpGet]
         [Route("GetDonorsByRHFactor")]
-        public string GetValuesById(string rhf)
+        public ActionResult<IEnumerable<string>> GetDonorsByRhFactor(string rhf)
         {
-            MySqlConnection conn = DBcon.getconn();
-            Dictionary<object, object> dict = DBcon.RetrieveDonors(conn); 
+            // MySqlConnection conn = DBcon.getconn();
+            // Dictionary<object, object> dict = DBcon.RetrieveDonors(conn, rhf); 
+            string[] donors = DBcon.RetrieveDonors(conn, rhf);
             
+            Console.WriteLine(donors);
             Console.WriteLine(rhf);
             
-            string json = JsonConvert.SerializeObject(dict, Formatting.Indented);
-            return json;
-            // return new string[] { "value1" };
+            // string json = JsonConvert.SerializeObject(dict, Formatting.Indented);
+            //return json;
+            
+            return donors;
         }
+        
+        // GET api/TestController/GetBloodStorage
+        [HttpGet]
+        [Route("GetBloodStorage")]
+        public string GetBloodStorage()
+        {
+            // MySqlConnection conn = DBcon.getconn();
+            string json = DBcon.RetrieveBloodStorage(conn, "getBloodStorage");
+            return json;
+        }
+        
+        // GET api/TestController/Donor/1/
+        [HttpGet]
+        [Route("Donor/{DonorID}/")]
+        public string GetDonorInformation(int donorId)
+        {
+            Console.WriteLine("recieved");
+            Console.WriteLine(donorId);
+            string json = DBcon.RetrieveDonorInformation(conn, donorId, "getDonorInfo");
+            return json;
+        }
+        
+        // GET api/TestController/Hospital/3/
+        [HttpGet]
+        [Route("Hospital/{HosptialID}")]
+        public string GetHospitalInformation(int hosptialId)
+        {
+            string json = DBcon.RetrieveHospitalInformation(conn, hosptialId, "getHospitalInfo");
+            return json;
+        }
+        
+        // GET api/TestController/Employee/4/
+        [HttpGet]
+        [Route("Employee/{EmployeeID}/")]
+        public string GetEmployeeInformation(int employeeId)
+        {
+            Console.WriteLine("recieved");
+            Console.WriteLine(employeeId);
+            string json = DBcon.RetrieveEmployeeInformation(conn, employeeId, "getEmployeeInfo");
+            return json;
+        }
+        
+        // GET api/TestController/Employee/{ClinicID}/
+        
+        // GET api/TestController/Event/{EventID}/
     }
 }

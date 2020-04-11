@@ -14,7 +14,11 @@
       </e>
       <e p="CPSC471.csproj" t="IncludeRecursive" />
       <e p="Models" t="Include">
+        <e p="BloodStorage.cs" t="Include" />
         <e p="DBcon.cs" t="Include" />
+        <e p="Donor.cs" t="Include" />
+        <e p="Employee.cs" t="Include" />
+        <e p="Hospital.cs" t="Include" />
       </e>
       <e p="obj" t="ExcludeRecursive">
         <e p="Debug" t="Include">
