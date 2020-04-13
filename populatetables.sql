@@ -1,5 +1,24 @@
 use bloodstorageapi;
 
+delete from employee;
+alter table employee auto_increment = 1;
+
+insert into employee (Address, PhoneNumber, Name, Role, ClinicID) values ('1234 Rainbow Rd', '123456789', 'Employee One', 'Employee', 1);
+insert into employee (Address, PhoneNumber, Name, Role, ClinicID) values ('1234 Rainbow Rd', '123456789', 'Employee Two', 'Employee', 1);
+insert into employee (Address, PhoneNumber, Name, Role, ClinicID) values ('1234 Rainbow Rd', '123456789', 'Employee Three', 'Employee', 1);
+insert into employee (Address, PhoneNumber, Name, Role, ClinicID) values ('1234 Rainbow Rd', '123456789', 'Employee Four', 'Employee', 1);
+insert into employee (Address, PhoneNumber, Name, Role, ClinicID) values ('1234 Rainbow Rd', '123456789', 'Big Boss', 'Supervisor', 1);
+
+delete from clinic;
+alter table clinic auto_increment = 1;
+
+insert into clinic (PhoneNumber, ClinicLocation, ManagerID) values ('403737373', 'Calgary', 5);
+insert into clinic (PhoneNumber, ClinicLocation, ManagerID) values ('403737313', 'Edmonton', 5);
+insert into clinic (PhoneNumber, ClinicLocation, ManagerID) values ('403731111', 'Toronto', 5);
+insert into clinic (PhoneNumber, ClinicLocation, ManagerID) values ('403213273', 'Vancouver', 5);
+insert into clinic (PhoneNumber, ClinicLocation, ManagerID) values ('915232232', 'Banff', 5);
+
+
 delete from volunteer;
 alter table volunteer auto_increment = 1;
 
@@ -18,23 +37,6 @@ insert into bloodstorage (ShelfLife, BloodType, Shipped) values ('2020-05-16', '
 insert into bloodstorage (ShelfLife, BloodType, Shipped) values ('2020-08-16', 'O-', FALSE);
 insert into bloodstorage (ShelfLife, BloodType, Shipped) values ('2020-09-16', 'A+', FALSE);
 
-delete from clinic;
-alter table clinic auto_increment = 1;
-
-insert into clinic (PhoneNumber, ClinicLocation, ManagerID) values ('403737373', 'Calgary', 5);
-insert into clinic (PhoneNumber, ClinicLocation, ManagerID) values ('403737313', 'Edmonton', 5);
-insert into clinic (PhoneNumber, ClinicLocation, ManagerID) values ('403731111', 'Toronto', 5);
-insert into clinic (PhoneNumber, ClinicLocation, ManagerID) values ('403213273', 'Vancouver', 5);
-insert into clinic (PhoneNumber, ClinicLocation, ManagerID) values ('915232232', 'Banff', 5);
-
-delete from donation;
-
-insert into donation (DonationDate, PointsEarned, DonorID) values ('2020-04-09', 100, 1);
-insert into donation (DonationDate, PointsEarned, DonorID) values ('2020-04-09', 50, 2);
-insert into donation (DonationDate, PointsEarned, DonorID) values ('2020-04-09', 1020, 3);
-insert into donation (DonationDate, PointsEarned, DonorID) values ('2020-04-09', 11, 4);
-insert into donation (DonationDate, PointsEarned, DonorID) values ('2020-04-09', 0, 5);
-
 delete from donor;
 alter table donor auto_increment = 1;
 
@@ -44,14 +46,15 @@ insert into donor (Name, BloodType, RHFactor, Points) values ('Barack Obama', 'O
 insert into donor (Name, BloodType, RHFactor, Points) values ('Kanye West', 'A+', 'positive', 50);
 insert into donor (Name, BloodType, RHFactor, Points) values ('Kevin Durant', 'B+', 'positive', 50);
 
-delete from employee;
-alter table employee auto_increment = 1;
 
-insert into employee (Address, PhoneNumber, Name, Role, ClinicID) values ('1234 Rainbow Rd', '123456789', 'Employee One', 'Employee', 1);
-insert into employee (Address, PhoneNumber, Name, Role, ClinicID) values ('1234 Rainbow Rd', '123456789', 'Employee Two', 'Employee', 1);
-insert into employee (Address, PhoneNumber, Name, Role, ClinicID) values ('1234 Rainbow Rd', '123456789', 'Employee Three', 'Employee', 1);
-insert into employee (Address, PhoneNumber, Name, Role, ClinicID) values ('1234 Rainbow Rd', '123456789', 'Employee Four', 'Employee', 1);
-insert into employee (Address, PhoneNumber, Name, Role, ClinicID) values ('1234 Rainbow Rd', '123456789', 'Big Boss', 'Supervisor', 1);
+delete from donation;
+
+insert into donation (DonationDate, PointsEarned, DonorID) values ('2020-04-09', 100, 1);
+insert into donation (DonationDate, PointsEarned, DonorID) values ('2020-04-09', 50, 2);
+insert into donation (DonationDate, PointsEarned, DonorID) values ('2020-04-09', 1020, 3);
+insert into donation (DonationDate, PointsEarned, DonorID) values ('2020-04-09', 11, 4);
+insert into donation (DonationDate, PointsEarned, DonorID) values ('2020-04-09', 0, 5);
+
 
 delete from events;
 
