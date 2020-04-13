@@ -328,6 +328,87 @@ namespace CPSC471.Models
             return json;
         }
 
+        public static void UpdateHospitalName(MySqlConnection conn, int hid, string hospitalName, string stp)
+        {
+            MySqlCommand cmd = new MySqlCommand(stp, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                cmd.Parameters.Add(new MySqlParameter("@paramHID", hid));
+                cmd.Parameters.Add(new MySqlParameter("@paramHospitalName", hospitalName));
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                string s = ex.Message;
+                Console.WriteLine(s);
+            }
+
+            Console.WriteLine("done");
+            cmd.Connection.Close();
+        }
+
+        public static void UpdateDonorName(MySqlConnection conn, int donorId, string donorName, string stp)
+        {
+            MySqlCommand cmd = new MySqlCommand(stp, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                cmd.Parameters.Add(new MySqlParameter("@paramDonorID", donorId));
+                cmd.Parameters.Add(new MySqlParameter("@paramDonorName", donorName));
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                string s = ex.Message;
+                Console.WriteLine(s);
+            }
+
+            Console.WriteLine("done");
+            cmd.Connection.Close();
+            
+        }
+        
+        public static void AddDonorPoints(MySqlConnection conn, int donorId, int donorPoints, string stp)
+        {
+            MySqlCommand cmd = new MySqlCommand(stp, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                cmd.Parameters.Add(new MySqlParameter("@paramDonorID", donorId));
+                cmd.Parameters.Add(new MySqlParameter("@paramDonorPoints", donorPoints));
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                string s = ex.Message;
+                Console.WriteLine(s);
+            }
+
+            Console.WriteLine("done");
+            cmd.Connection.Close();
+        }
+
+        public static void UpdateBloodStorage(MySqlConnection conn, int bid, int shipped, string stp)
+        {
+            MySqlCommand cmd = new MySqlCommand(stp, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                cmd.Parameters.Add(new MySqlParameter("@paramBID", bid));
+                cmd.Parameters.Add(new MySqlParameter("@paramShipped", Convert.ToBoolean(shipped)));
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                string s = ex.Message;
+                Console.WriteLine(s);
+            }
+
+            Console.WriteLine("done");
+            cmd.Connection.Close();
+        }
+
 
     }
 }

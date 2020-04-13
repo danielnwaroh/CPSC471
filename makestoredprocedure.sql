@@ -109,3 +109,47 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `addDonor`(IN paramName varchar(50),
 BEGIN
 	insert into donor (Name, BloodType, RHFactor, Points) values (paramName, paramBloodType, paramRHFactor, paramPoints);
 END //
+
+DELIMITER ;
+
+DROP procedure IF EXISTS `updateHospitalName`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updateHospitalName`(IN paramHID int, paramHospitalName varchar(50))
+BEGIN
+	update hospital
+    set HospitalName = paramHospitalName
+    where HID = paramHID;
+END //
+
+DELIMITER ;
+
+DROP procedure IF EXISTS `updateDonorName`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updateDonorName`(IN paramDonorID int, paramDonorName varchar(50))
+BEGIN
+	update donor
+    set Name = paramDonorName
+    where donorID = paramDonorID;
+END //
+
+DELIMITER ;
+
+DROP procedure IF EXISTS `addDonorPoints`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addDonorPoints`(IN paramDonorID int, paramDonorPoints int)
+BEGIN
+	update donor
+    set Points = Points + paramDonorPoints
+    where donorID = paramDonorID;
+END //
+
+DELIMITER ;
+
+DROP procedure IF EXISTS `updateBloodStorage`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updateBloodStorage`(IN paramBID int, paramShipped boolean)
+BEGIN
+	update bloodstorage
+    set Shipped = paramShipped
+    where BID = paramBID;
+END //

@@ -132,11 +132,12 @@ namespace CPSC471.Controllers
         // POST api/TestController/AddDonor
         [HttpPost]
         [Route("AddDonor")]
-        public void AddDonor([FromBody] Donor donor)
+        public string AddDonor([FromBody] Donor donor)
         {
             Console.WriteLine(donor.Name);
             Console.WriteLine(donor.BloodType);
             DBcon.AddDonor(conn, donor.Name, donor.BloodType, donor.RHFactor, donor.Points, "addDonor");
+            return "Insertion was successful";
         }
         
         // GET api/TestController/AllEmployees
@@ -157,6 +158,39 @@ namespace CPSC471.Controllers
             return json;
         }
         
+        // PUT api/TestController/UpdateHospital
+        [HttpPut]
+        [Route("UpdateHospital")]
+        public void UpdateHospital([FromBody] Hospital hospital)
+        {
+            Console.WriteLine("HID: "+hospital.HID);
+            Console.WriteLine("Location: "+hospital.HospitalLocation);
+            Console.WriteLine("Name: "+hospital.HospitalName);
+            DBcon.UpdateHospitalName(conn, hospital.HID, hospital.HospitalName, "updateHospitalName");
+        }
         
+        // PUT api/TestController/UpdateDonorName
+        [HttpPut]
+        [Route("UpdateDonorName")]
+        public void UpdateDonorName([FromBody] Donor donor)
+        {
+            DBcon.UpdateDonorName(conn, donor.DonorID, donor.Name, "updateDonorName");
+        }
+        
+        // PUT api/TestController/AddDonorPoints
+        [HttpPut]
+        [Route("AddDonorPoints")]
+        public void AddDonorPoints([FromBody] Donor donor)
+        {
+            DBcon.AddDonorPoints(conn, donor.DonorID, donor.Points, "addDonorPoints");
+        }
+        
+        // PUT api/TestController/UpdateBloodStorage
+        [HttpPut]
+        [Route("UpdateBloodStorage")]
+        public void UpdateBloodStorage([FromBody] BloodStorage bloodStorage)
+        {
+            DBcon.UpdateBloodStorage(conn, bloodStorage.BID, bloodStorage.Shipped, "updateBloodStorage");
+        }
     }
 }
