@@ -56,3 +56,56 @@ BEGIN
 END //
 
 DELIMITER ;
+
+DROP procedure IF EXISTS `addHospital`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addHospital`(IN paramHospitalLocation varchar(50), paramHospitalName varchar(50))
+BEGIN
+	insert into hospital (HospitalLocation, HospitalName) values (paramHospitalLocation, paramHospitalName);
+END //
+
+DELIMITER ;
+
+DROP procedure IF EXISTS `addEmployee`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addEmployee`(IN paramAddress varchar(50), paramPhoneNumber varchar(50), paramName varchar(50), paramRole varchar(50), paramClinicID int)
+BEGIN
+	insert into employee (Address, PhoneNumber, Name, Role, ClinicID) values (paramAddress, paramPhoneNumber, paramName, paramRole, paramClinicID);
+END //
+
+DELIMITER ;
+
+DROP procedure IF EXISTS `addBloodStorage`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addBloodStorage`(IN paramShelfLife varchar(50), paramBloodType varchar(3), paramShipped boolean)
+BEGIN
+	SET @newid = (SELECT CAST(paramShelfLife AS date));
+	insert into bloodstorage (ShelfLife, BloodType, Shipped) values (@newid, paramBloodType, paramShipped);
+END //
+
+DELIMITER ;
+
+DROP procedure IF EXISTS `getAllEmployees`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getAllEmployees`()
+BEGIN
+	SELECT * FROM employee;
+END //
+
+DELIMITER ;
+
+DROP procedure IF EXISTS `getAllDonors`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getAllDonors`()
+BEGIN
+	SELECT * FROM donor;
+END //
+
+DELIMITER ;
+
+DROP procedure IF EXISTS `addDonor`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addDonor`(IN paramName varchar(50), paramBloodType varchar(3), paramRHFactor varchar(10), paramPoints int)
+BEGIN
+	insert into donor (Name, BloodType, RHFactor, Points) values (paramName, paramBloodType, paramRHFactor, paramPoints);
+END //

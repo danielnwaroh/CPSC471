@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CPSC471.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
@@ -28,19 +29,14 @@ namespace CPSC471.Controllers
         // GET api/TestController/GetDonorsByRHFactor?rhf=positive
         [HttpGet]
         [Route("GetDonorsByRHFactor")]
-        public ActionResult<IEnumerable<string>> GetDonorsByRhFactor(string rhf)
+        public string GetDonorsByRhFactor(string rhf)
         {
-            // MySqlConnection conn = DBcon.getconn();
-            // Dictionary<object, object> dict = DBcon.RetrieveDonors(conn, rhf); 
-            string[] donors = DBcon.RetrieveDonors(conn, rhf);
+            string json = DBcon.RetrieveDonors(conn, rhf, "getDonorByRHF");
             
-            Console.WriteLine(donors);
+            Console.WriteLine(json);
             Console.WriteLine(rhf);
-            
-            // string json = JsonConvert.SerializeObject(dict, Formatting.Indented);
-            //return json;
-            
-            return donors;
+
+            return json;
         }
         
         // GET api/TestController/GetBloodStorage
@@ -48,7 +44,6 @@ namespace CPSC471.Controllers
         [Route("GetBloodStorage")]
         public string GetBloodStorage()
         {
-            // MySqlConnection conn = DBcon.getconn();
             string json = DBcon.RetrieveBloodStorage(conn, "getBloodStorage");
             return json;
         }
@@ -92,21 +87,76 @@ namespace CPSC471.Controllers
             string json = DBcon.RetrieveAllEmployeesOfClinic(conn, clinicId, "getAllEmployeesOfClinic");
             return json;
         }
+        
+        // POST api/TestController/InsertEmployee
+        [HttpPost]
+        [Route("InsertEmployee")]
+        public string InsertEmployee([FromBody] Employee employee)
+        {
+            Console.WriteLine(employee.Address);
+            Console.WriteLine(employee.PhoneNumber);
+            Console.WriteLine(employee.Name);
+            Console.WriteLine(employee.Role);
+            Console.WriteLine(employee.ClinicID);
+            DBcon.AddEmployee(conn, employee.Address, employee.PhoneNumber,employee.Name, employee.Role, employee.ClinicID, "addEmployee");
+            return "Insertion was successful";
+        }
+        
         // GET api/TestController/Event/{EventID}/
         
         // POST api/TestController/AddHospital
         [HttpPost]
-        // [Route("AddHospital")]
-        [Route("AddHospital/{HID}")]
+        [Route("AddHospital")]
         [ActionName("AddHospital")]
-        public string AddNewHospital(string s)
+        public string AddNewHospital([FromBody] Hospital hospital)
         {
-            Console.WriteLine(s);
-            //string hospitalLocation = (string)emp["HospitalLocation"];
-            //string hosptialName = (string)emp["HospitalName"];
-            Console.WriteLine("12345");
-            return s;
-
+            Console.WriteLine(hospital.HospitalLocation);
+            DBcon.AddHospital(conn, hospital.HospitalLocation, hospital.HospitalName,"addHospital");
+            // Console.WriteLine(Ok(new string[] { "value1" }));
+            return "Insertion was successful";
         }
+        
+        // POST api/TestController/AddBloodStorage
+        [HttpPost]
+        [Route("AddBloodStorage")]
+        public string AddBloodStorage([FromBody] BloodStorage bloodStorage)
+        {
+            Console.WriteLine(bloodStorage.ShelfLife);
+            Console.WriteLine(bloodStorage.BloodType);
+            Console.WriteLine(bloodStorage.Shipped);
+            DBcon.AddBloodStorage(conn, bloodStorage.ShelfLife, bloodStorage.BloodType, bloodStorage.Shipped,
+                "addBloodStorage");
+            return "Insertion was successful";
+        }
+        
+        // POST api/TestController/AddDonor
+        [HttpPost]
+        [Route("AddDonor")]
+        public void AddDonor([FromBody] Donor donor)
+        {
+            Console.WriteLine(donor.Name);
+            Console.WriteLine(donor.BloodType);
+            DBcon.AddDonor(conn, donor.Name, donor.BloodType, donor.RHFactor, donor.Points, "addDonor");
+        }
+        
+        // GET api/TestController/AllEmployees
+        [HttpGet]
+        [Route("AllEmployees")]
+        public string GetAllEmployees()
+        {
+            string json = DBcon.RetrieveAllEmployees(conn, "getAllEmployees");
+            return json;
+        }
+        
+        // GET api/TestController/AllDonors
+        [HttpGet]
+        [Route("AllDonors")]
+        public string GetAllDonors()
+        {
+            string json = DBcon.RetrieveAllDonors(conn, "getAllDonors");
+            return json;
+        }
+        
+        
     }
 }

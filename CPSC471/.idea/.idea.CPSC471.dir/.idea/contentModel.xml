@@ -17,6 +17,7 @@
         <e p="BloodStorage.cs" t="Include" />
         <e p="DBcon.cs" t="Include" />
         <e p="Donor.cs" t="Include" />
+        <e p="DonorNameBloodType.cs" t="Include" />
         <e p="Employee.cs" t="Include" />
         <e p="Hospital.cs" t="Include" />
       </e>
@@ -24,6 +25,7 @@
         <e p="Debug" t="Include">
           <e p="netcoreapp3.1" t="Include">
             <e p="CPSC471.AssemblyInfo.cs" t="Include" />
+            <e p="CPSC471.RazorAssemblyInfo.cs" t="Include" />
           </e>
         </e>
       </e>
@@ -33,6 +35,12 @@
         <e p="launchSettings.json" t="Include" />
       </e>
       <e p="Startup.cs" t="Include" />
+      <e p="Views" t="Include">
+        <e p="Home" t="Include">
+          <e p="Index.cshtml" t="Include" />
+        </e>
+        <e p="Shared" t="Include" />
+      </e>
       <e p="wwwroot" t="Include">
         <e p="css" t="Include">
           <e p="site.css" t="Include" />

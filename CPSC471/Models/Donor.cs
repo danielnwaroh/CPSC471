@@ -2,6 +2,7 @@
 {
     public class Donor
     {
+        
         public int DonorID { get; set; }
         public string Name { get; set; }
         public string BloodType { get; set; }
