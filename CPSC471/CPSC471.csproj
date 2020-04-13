@@ -12,7 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Views\Shared" />
+      <_ContentIncludedByDefault Remove="Views\Home\Index.cshtml" />
     </ItemGroup>
 
 </Project>
