@@ -66,14 +66,17 @@ create table bloodstorageapi.hospital (
 
 create table bloodstorageapi.request (
 	RequestID int not null primary key auto_increment,
-    DateBy date not null,
-    DateReq date not null,
     ClinicID int not null,
     DateCompleted date,
     HospitalID int not null,
-    isApproved boolean not null,
+    Amount int not null,
+    BloodType varchar(2) not null,
+    RHFactor varchar(45) not null,
+    Approved boolean not null,
+    ApprovedBy int,
     foreign key (ClinicID) references bloodstorageapi.clinic(ClinicID),
-    foreign key (HospitalID) references bloodstorageapi.hospital(HID)
+    foreign key (HospitalID) references bloodstorageapi.hospital(HID),
+    foreign key (ApprovedBy) references bloodstoarageapi.employee(EmployeeID)
 );
 
 create table bloodstorageapi.prize (
@@ -89,6 +92,19 @@ create table bloodstorageapi.prizetransaction (
     foreign key (donorID) references bloodstorageapi.donor(DonorID),
     foreign key (PID) references bloodstorageapi.prize(PID)
 );
+
+create table employeeevents(
+	eventID date not null primary key,
+    employeeID int not null primary key,
+    foreign key (eventID) references bloodstorageapi.events(EventDate),
+    foreign key (eventID) references bloodstorageapi.employee(EmployeeID)
+);
+
+create table volunteerevents(
+	eventID date not null primary key,
+    volunteerID int not null primary key,
+    foreign key (eventID) references bloodstorageapi.events(EventDate),
+    foreign key (eventID) references bloodstorageapi.volunteer(VolunteerID));
 
 use bloodstorageapi;
 
