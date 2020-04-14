@@ -54,5 +54,14 @@ namespace CPSC471.Controllers
             string json = DBcon.RetrieveBloodStorage(conn, "getBloodStorage");
             return json;
         }
+        
+        // POST
+        [HttpPost]
+        [Route("Management/InsertEvent")]
+        public string InsertEvent([FromBody] Events events)
+        {
+            DBcon.InsertEvent(conn, events, "addEvent");
+            return "Insert successful";
+        }
     }
 }
