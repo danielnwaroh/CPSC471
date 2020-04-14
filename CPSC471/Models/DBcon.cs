@@ -23,7 +23,7 @@ namespace CPSC471.Models
         {
             MySqlConnection conn =
                 new MySqlConnection(
-                    "server=localhost;dns-srv=false;user id=root;password=password;database=bloodstorageapi");
+                    "server=localhost;dns-srv=false;user id=root;password=Olgaland13.;database=bloodstorageapi");
             try
             {
                 conn.Open();
@@ -38,26 +38,33 @@ namespace CPSC471.Models
             return conn;
         }
 
-        public static string RetrieveDonors(MySqlConnection conn, string rhf, string stp)
+        public static string RetrieveDonorsByRhf(MySqlConnection conn, string rhf, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@rhf", rhf);
-            MySqlDataReader rdr = cmd.ExecuteReader();
-
-            List<DonorNameBloodType> donorList = new List<DonorNameBloodType>();
-            while (rdr.Read())
+            try
             {
-                Console.WriteLine(rdr[0] + " --- " + rdr[1]);
-                donorList.Add(new DonorNameBloodType
-                {
-                    Name = Convert.ToString(rdr[0]), BloodType = Convert.ToString(rdr[1])
-                });
-            }
+                cmd.Parameters.AddWithValue("@rhf", rhf);
+                MySqlDataReader rdr = cmd.ExecuteReader();
 
-            rdr.Close();
-            string json = JsonConvert.SerializeObject(new {results = donorList}, Formatting.Indented);
-            return json;
+                List<DonorNameBloodType> donorList = new List<DonorNameBloodType>();
+                while (rdr.Read())
+                {
+                    donorList.Add(new DonorNameBloodType
+                    {
+                        Name = Convert.ToString(rdr[0]), BloodType = Convert.ToString(rdr[1])
+                    });
+                }
+                rdr.Close();
+                string json = JsonConvert.SerializeObject(new {results = donorList}, Formatting.Indented);
+                return json;
+            }
+            catch (Exception ex)
+            {
+                string s = ex.Message;
+                Console.WriteLine(s);
+                return s;
+            }
         }
 
         public static string RetrieveBloodStorage(MySqlConnection conn, string stp)
@@ -87,101 +94,137 @@ namespace CPSC471.Models
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@potentialdonorID", donorId);
-            MySqlDataReader rdr = cmd.ExecuteReader();
-
-            IList<Donor> donorInformation = new List<Donor>();
-            while (rdr.Read())
+            try
             {
-                donorInformation.Add(new Donor
-                {
-                    DonorID = Convert.ToInt32(rdr[0]), Name = Convert.ToString(rdr[1]),
-                    BloodType = Convert.ToString(rdr[2]), RHFactor = Convert.ToString(rdr[3]),
-                    Points = Convert.ToInt32(rdr[4])
-                });
-            }
+                cmd.Parameters.AddWithValue("@potentialdonorID", donorId);
+                MySqlDataReader rdr = cmd.ExecuteReader();
 
-            rdr.Close();
-            string json = JsonConvert.SerializeObject(new {results = donorInformation}, Formatting.Indented);
-            Console.WriteLine(json);
-            return json;
+                IList<Donor> donorInformation = new List<Donor>();
+                while (rdr.Read())
+                {
+                    donorInformation.Add(new Donor
+                    {
+                        DonorID = Convert.ToInt32(rdr[0]), Name = Convert.ToString(rdr[1]),
+                        BloodType = Convert.ToString(rdr[2]), RHFactor = Convert.ToString(rdr[3]),
+                        Points = Convert.ToInt32(rdr[4])
+                    });
+                }
+
+                rdr.Close();
+                string json = JsonConvert.SerializeObject(new {results = donorInformation}, Formatting.Indented);
+                Console.WriteLine(json);
+                return json;
+            }
+            catch (Exception ex)
+            {
+                string s = ex.Message;
+                Console.WriteLine(s);
+                return s;
+            }
         }
 
         public static string RetrieveHospitalInformation(MySqlConnection conn, int hospitalId, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@paramHID", hospitalId);
-            MySqlDataReader rdr = cmd.ExecuteReader();
-
-            IList<Hospital> hospitalInformation = new List<Hospital>();
-            while (rdr.Read())
+            try
             {
-                hospitalInformation.Add(new Hospital
-                {
-                    HID = Convert.ToInt32(rdr[0]), HospitalLocation = Convert.ToString(rdr[1]),
-                    HospitalName = Convert.ToString(rdr[2])
-                });
-            }
+                cmd.Parameters.AddWithValue("@paramHID", hospitalId);
+                MySqlDataReader rdr = cmd.ExecuteReader();
 
-            rdr.Close();
-            string json = JsonConvert.SerializeObject(new {results = hospitalInformation}, Formatting.Indented);
-            Console.WriteLine(json);
-            return json;
+                IList<Hospital> hospitalInformation = new List<Hospital>();
+                while (rdr.Read())
+                {
+                    hospitalInformation.Add(new Hospital
+                    {
+                        HID = Convert.ToInt32(rdr[0]), HospitalLocation = Convert.ToString(rdr[1]),
+                        HospitalName = Convert.ToString(rdr[2])
+                    });
+                }
+
+                rdr.Close();
+                string json = JsonConvert.SerializeObject(new {results = hospitalInformation}, Formatting.Indented);
+                Console.WriteLine(json);
+                return json;
+            }
+            catch (Exception ex)
+            {
+                string s = ex.Message;
+                Console.WriteLine(s);
+                return s;
+            }
         }
 
         public static string RetrieveEmployeeInformation(MySqlConnection conn, int employeeId, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@paramEmployeeID", employeeId);
-            MySqlDataReader rdr = cmd.ExecuteReader();
-
-            IList<Employee> employeeInformation = new List<Employee>();
-            while (rdr.Read())
+            try
             {
-                employeeInformation.Add(new Employee
-                {
-                    EmployeeID = Convert.ToInt32(rdr[0]),
-                    Address = Convert.ToString(rdr[1]),
-                    PhoneNumber = Convert.ToString(rdr[2]),
-                    Name = Convert.ToString(rdr[3]),
-                    Role = Convert.ToString(rdr[4]),
-                    ClinicID = Convert.ToInt32(rdr[5])
-                });
-            }
+                cmd.Parameters.AddWithValue("@paramEmployeeID", employeeId);
+                MySqlDataReader rdr = cmd.ExecuteReader();
 
-            rdr.Close();
-            string json = JsonConvert.SerializeObject(new {results = employeeInformation}, Formatting.Indented);
-            Console.WriteLine(json);
-            return json;
+                IList<Employee> employeeInformation = new List<Employee>();
+                while (rdr.Read())
+                {
+                    employeeInformation.Add(new Employee
+                    {
+                        EmployeeID = Convert.ToInt32(rdr[0]),
+                        Address = Convert.ToString(rdr[1]),
+                        PhoneNumber = Convert.ToString(rdr[2]),
+                        Name = Convert.ToString(rdr[3]),
+                        Role = Convert.ToString(rdr[4]),
+                        ClinicID = Convert.ToInt32(rdr[5])
+                    });
+                }
+
+                rdr.Close();
+                string json = JsonConvert.SerializeObject(new {results = employeeInformation}, Formatting.Indented);
+                Console.WriteLine(json);
+                return json;
+            }
+            catch (Exception ex)
+            {
+                string s = ex.Message;
+                Console.WriteLine(s);
+                return s;
+            }
         }
 
         public static string RetrieveAllEmployeesOfClinic(MySqlConnection conn, int clinicId, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@paramClinicID", clinicId);
-            MySqlDataReader rdr = cmd.ExecuteReader();
-
-            IList<Employee> employeeInformation = new List<Employee>();
-            while (rdr.Read())
+            try
             {
-                employeeInformation.Add(new Employee
-                {
-                    EmployeeID = Convert.ToInt32(rdr[0]),
-                    Address = Convert.ToString(rdr[1]),
-                    PhoneNumber = Convert.ToString(rdr[2]),
-                    Name = Convert.ToString(rdr[3]),
-                    Role = Convert.ToString(rdr[4]),
-                    ClinicID = Convert.ToInt32(rdr[5])
-                });
-            }
+                cmd.Parameters.AddWithValue("@paramClinicID", clinicId);
+                MySqlDataReader rdr = cmd.ExecuteReader();
 
-            rdr.Close();
-            string json = JsonConvert.SerializeObject(new {results = employeeInformation}, Formatting.Indented);
-            Console.WriteLine(json);
-            return json;
+                IList<Employee> employeeInformation = new List<Employee>();
+                while (rdr.Read())
+                {
+                    employeeInformation.Add(new Employee
+                    {
+                        EmployeeID = Convert.ToInt32(rdr[0]),
+                        Address = Convert.ToString(rdr[1]),
+                        PhoneNumber = Convert.ToString(rdr[2]),
+                        Name = Convert.ToString(rdr[3]),
+                        Role = Convert.ToString(rdr[4]),
+                        ClinicID = Convert.ToInt32(rdr[5])
+                    });
+                }
+
+                rdr.Close();
+                string json = JsonConvert.SerializeObject(new {results = employeeInformation}, Formatting.Indented);
+                Console.WriteLine(json);
+                return json;
+            }
+            catch (Exception ex)
+            {
+                string s = ex.Message;
+                Console.WriteLine(s);
+                return s;
+            }
         }
 
         public static void AddHospital(MySqlConnection conn, string hospitalLocation, string hospitalName, string stp)
@@ -190,7 +233,6 @@ namespace CPSC471.Models
             cmd.CommandType = CommandType.StoredProcedure;
             Console.WriteLine(hospitalLocation);
             Console.WriteLine(hospitalName);
-            Console.WriteLine("Made Parameters");
             // cmd.Parameters.AddWithValue("@paramHospitalLocation", hospitalLocation);
             // cmd.Parameters.AddWithValue("@paramHospitalName", hospitalName);
             try
@@ -234,7 +276,7 @@ namespace CPSC471.Models
             cmd.Connection.Close();
         }
 
-        public static void AddBloodStorage(MySqlConnection conn, string shelfLife, string bloodType, int shipped,
+        public static string AddBloodStorage(MySqlConnection conn, string shelfLife, string bloodType, int shipped,
             string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
@@ -246,15 +288,18 @@ namespace CPSC471.Models
                 cmd.Parameters.Add(new MySqlParameter("@paramBloodType", bloodType));
                 cmd.Parameters.Add(new MySqlParameter("@paramShipped", Convert.ToBoolean(shipped)));
                 cmd.ExecuteNonQuery();
+                cmd.Connection.Close();
+                return "Insertion was successful";
             }
             catch (Exception ex)
             {
                 string s = ex.Message;
                 Console.WriteLine(s);
+                cmd.Connection.Close();
+                return s;
             }
 
-            Console.WriteLine("done");
-            cmd.Connection.Close();
+            
         }
 
         public static void AddDonor(MySqlConnection conn, string name, string bloodType, string rhFactor, int points,
@@ -284,48 +329,63 @@ namespace CPSC471.Models
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
             cmd.CommandType = CommandType.StoredProcedure;
-            MySqlDataReader rdr = cmd.ExecuteReader();
-
-            IList<Employee> employeeList = new List<Employee>();
-            while (rdr.Read())
+            try
             {
-                Console.WriteLine(rdr[0] + " --- " + rdr[1] + " --- " + rdr[2] + " --- " + rdr[3]);
-                employeeList.Add(new Employee
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                IList<Employee> employeeList = new List<Employee>();
+                while (rdr.Read())
                 {
-                    EmployeeID = Convert.ToInt32(rdr[0]), Address = Convert.ToString(rdr[1]),
-                    PhoneNumber = Convert.ToString(rdr[2]), Name = Convert.ToString(rdr[3]),
-                    Role = Convert.ToString(rdr[4]), ClinicID = Convert.ToInt32(rdr[5])
-                });
-            }
+                    employeeList.Add(new Employee
+                    {
+                        EmployeeID = Convert.ToInt32(rdr[0]), Address = Convert.ToString(rdr[1]),
+                        PhoneNumber = Convert.ToString(rdr[2]), Name = Convert.ToString(rdr[3]),
+                        Role = Convert.ToString(rdr[4]), ClinicID = Convert.ToInt32(rdr[5])
+                    });
+                }
 
-            rdr.Close();
-            string json = JsonConvert.SerializeObject(new {results = employeeList}, Formatting.Indented);
-            Console.WriteLine(json);
-            return json;
+                rdr.Close();
+                string json = JsonConvert.SerializeObject(new {results = employeeList}, Formatting.Indented);
+                Console.WriteLine(json);
+                return json;
+            }
+            catch (Exception ex)
+            {
+                string s = ex.Message;
+                Console.WriteLine(s);
+                return s;
+            }
+            
         }
 
         public static string RetrieveAllDonors(MySqlConnection conn, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
             cmd.CommandType = CommandType.StoredProcedure;
-            MySqlDataReader rdr = cmd.ExecuteReader();
-
-            IList<Donor> donorList = new List<Donor>();
-            while (rdr.Read())
+            try
             {
-                Console.WriteLine(rdr[0] + " --- " + rdr[1] + " --- " + rdr[2] + " --- " + rdr[3]);
-                donorList.Add(new Donor
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                IList<Donor> donorList = new List<Donor>();
+                while (rdr.Read())
                 {
-                    DonorID = Convert.ToInt32(rdr[0]), Name = Convert.ToString(rdr[1]),
-                    BloodType = Convert.ToString(rdr[2]), RHFactor = Convert.ToString(rdr[3]),
-                    Points = Convert.ToInt32(rdr[4])
-                });
-            }
+                    donorList.Add(new Donor
+                    {
+                        DonorID = Convert.ToInt32(rdr[0]), Name = Convert.ToString(rdr[1]),
+                        BloodType = Convert.ToString(rdr[2]), RHFactor = Convert.ToString(rdr[3]),
+                        Points = Convert.ToInt32(rdr[4])
+                    });
+                }
 
-            rdr.Close();
-            string json = JsonConvert.SerializeObject(new {results = donorList}, Formatting.Indented);
-            Console.WriteLine(json);
-            return json;
+                rdr.Close();
+                string json = JsonConvert.SerializeObject(new {results = donorList}, Formatting.Indented);
+                Console.WriteLine(json);
+                return json;
+            }
+            catch (Exception ex)
+            {
+                string s = ex.Message;
+                Console.WriteLine(s);
+                return s;
+            }
         }
 
         public static void UpdateHospitalName(MySqlConnection conn, int hid, string hospitalName, string stp)

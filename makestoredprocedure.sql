@@ -1,9 +1,9 @@
-DROP procedure IF EXISTS `new_procedure`;
+DROP procedure IF EXISTS `getDonorByRHF`;
 DELIMITER //
-CREATE DEFINER=`root`@`localhost` PROCEDURE `new_procedure`(IN con CHAR(20))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getDonorByRHF`(IN rhf CHAR(20))
 BEGIN
 	SELECT Name, BloodType FROM donor
-    WHERE RHFactor = con;
+    WHERE RHFactor = rhf;
 END //
 
 DELIMITER ;

@@ -25,21 +25,20 @@ namespace CPSC471.Controllers
         [ActionName("AddHospital")]
         public string AddNewHospital([FromBody] Hospital hospital)
         {
-            Console.WriteLine(hospital.HospitalLocation);
             DBcon.AddHospital(conn, hospital.HospitalLocation, hospital.HospitalName,"addHospital");
-            // Console.WriteLine(Ok(new string[] { "value1" }));
             return "Insertion was successful";
         }
         
         // PUT Hospital/UpdateHospital
         [HttpPut]
         [Route("Hospital/UpdateHospital")]
-        public void UpdateHospital([FromBody] Hospital hospital)
+        public string UpdateHospital([FromBody] Hospital hospital)
         {
             Console.WriteLine("HID: "+hospital.HID);
             Console.WriteLine("Location: "+hospital.HospitalLocation);
             Console.WriteLine("Name: "+hospital.HospitalName);
             DBcon.UpdateHospitalName(conn, hospital.HID, hospital.HospitalName, "updateHospitalName");
+            return "Update was successful";
         }
     }
 }

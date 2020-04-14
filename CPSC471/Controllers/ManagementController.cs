@@ -21,19 +21,14 @@ namespace CPSC471.Controllers
         
         // POST Management/InsertEmployee
         [HttpPost]
-        [Route("InsertEmployee")]
+        [Route("Management/InsertEmployee")]
         public string InsertEmployee([FromBody] Employee employee)
         {
-            Console.WriteLine(employee.Address);
-            Console.WriteLine(employee.PhoneNumber);
-            Console.WriteLine(employee.Name);
-            Console.WriteLine(employee.Role);
-            Console.WriteLine(employee.ClinicID);
             DBcon.AddEmployee(conn, employee.Address, employee.PhoneNumber,employee.Name, employee.Role, employee.ClinicID, "addEmployee");
             return "Insertion was successful";
         }
         
-        // GET api/TestController/EmployeesAtClinic/1/
+        // GET Management/EmployeeClinic/1/
         [HttpGet]
         [Route("Management/EmployeeClinic/{ClinicID}/")]
         public string GetEmployeesAtClinic(int clinicId)
@@ -47,8 +42,6 @@ namespace CPSC471.Controllers
         [Route("Management/Employee/{EmployeeID}/")]
         public string GetEmployeeInformation(int employeeId)
         {
-            Console.WriteLine("recieved");
-            Console.WriteLine(employeeId);
             string json = DBcon.RetrieveEmployeeInformation(conn, employeeId, "getEmployeeInfo");
             return json;
         }
