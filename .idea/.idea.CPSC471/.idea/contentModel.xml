@@ -4,7 +4,7 @@
     <e p="C:\Users\amrit\.Rider2019.3\config\consoles\db" t="IncludeRecursive" />
     <e p="C:\Users\amrit\.Rider2019.3\config\extensions" t="IncludeRecursive" />
     <e p="C:\Users\amrit\.Rider2019.3\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\amrit\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_CPSC471.1329085460.00" t="ExcludeRecursive" />
+    <e p="C:\Users\amrit\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_CPSC471.1329085460.01" t="ExcludeRecursive" />
     <e p="C:\Users\amrit\RiderProjects\CPSC471" t="IncludeFlat">
       <e p="CPSC471" t="IncludeRecursive">
         <e p="appsettings.Development.json" t="Include" />
@@ -28,7 +28,6 @@
           <e p="Debug" t="Include">
             <e p="netcoreapp3.1" t="Include">
               <e p="CPSC471.AssemblyInfo.cs" t="Include" />
-              <e p="CPSC471.RazorAssemblyInfo.cs" t="Include" />
             </e>
           </e>
         </e>

@@ -81,7 +81,6 @@ C:\Users\amrit\RiderProjects\CPSC471\CPSC471\bin\Debug\netcoreapp3.1\runtimes\wi
 C:\Users\amrit\RiderProjects\CPSC471\CPSC471\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\amrit\RiderProjects\CPSC471\CPSC471\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\amrit\RiderProjects\CPSC471\CPSC471\bin\Debug\netcoreapp3.1\CPSC471.Views.dll
-C:\Users\amrit\RiderProjects\CPSC471\CPSC471\bin\Debug\netcoreapp3.1\CPSC471.Views.pdb
 C:\Users\danie\Documents\GitHub\CPSC471\CPSC471\bin\Debug\netcoreapp3.1\CPSC471.Views.dll
 C:\Users\danie\Documents\GitHub\CPSC471\CPSC471\bin\Debug\netcoreapp3.1\CPSC471.Views.pdb
 C:\Users\danie\Documents\GitHub\CPSC471\CPSC471\obj\Debug\netcoreapp3.1\CPSC471.RazorAssemblyInfo.cache
