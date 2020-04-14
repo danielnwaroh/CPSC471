@@ -100,11 +100,19 @@ namespace CPSC471.Controllers
         [Route("Clinic/AddPrizeTransaction")]
         public string AddPrizeTransaction([FromBody] PrizeTransaction prizeTransaction)
         {
-            DBcon.InsertPrizeTransaction(conn, PrizeTransaction.donorID, PrizeTransaction.PID, "addPrizeTransaction");
-            return "done";
+            int worked = DBcon.InsertPrizeTransaction(conn, prizeTransaction.donorID, prizeTransaction.PID, "addPrizeTransaction");
+            if (worked == 0)
+            {
+                return "Not enough Points for transaction";
+            } else if (worked == -1)
+
+            {
+                return "error in procedure";
+            }
+            else
+            {
+                return "Transaction complete";
+            }
         }
-        
-        
-        
     }
 }

@@ -171,7 +171,7 @@ DROP procedure IF EXISTS `addEvent`;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `addEvent`(IN paramEventDate date, paramEventLocation varchar(50), paramClinicID int, paramManagerID int)
 BEGIN
-    INSERT into events (eventdate, eventlocation, volunteerid, clinicid, managerid) values (paramEventDate, paramEventLocation,paramClinicID, paramManagerID);
+    INSERT into events (EventDate, EventLocation, ClinicID, EmployeeID) values (paramEventDate, paramEventLocation,paramClinicID, paramManagerID);
 END //
 
 DELIMITER ;
@@ -180,5 +180,22 @@ DROP procedure IF EXISTS `addPrizeTransaction`;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `addPrizeTransaction`(IN paramDonorID int, paramPID int)
 BEGIN
-    Insert into prizetransaction (donorid, pid) values (paramDonorID, paramPID);
+    Set @pointsreq = (select PointsPrice from prize where prize.PID = paramPID);
+    Set @pointshave = (select Points from donor where donor.DonorID = paramDonorID);
+    Set @qty = (Select Quantity from prize where prize.PID = paramPID);
+    If (@pointsreq<=@pointshave AND (@pointsreq != 0) AND (@qty > 0)) THEN
+        Insert into prizetransaction (donorID, PID) values (paramDonorID, paramPID);
+        
+        UPDATE prize
+        set Quantity = @qty - 1
+        Where prize.PID = paramPID;
+        
+        UPDATE donor
+        set Points = @pointshave - @pointsreq
+        where donor.DonorID = paramDonorID;
+    ELSE 
+        Signal sqlstate '42000'
+            SET MESSAGE_TEXT = 'Not enough Points.';
+    end if;
+          
 END //

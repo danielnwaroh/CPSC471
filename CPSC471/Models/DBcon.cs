@@ -512,20 +512,25 @@ namespace CPSC471.Models
         }
         
         
-        public static void InsertPrizeTransaction(MySqlConnection conn, in int donorID, in int PID, string stp)
+        public static int InsertPrizeTransaction(MySqlConnection conn, int donorID,int PID, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
             cmd.CommandType = CommandType.StoredProcedure;
+            Console.WriteLine(donorID);
+            Console.WriteLine(PID);
+            int work = -1;
             try
             {
                 cmd.Parameters.Add(new MySqlParameter("@paramDonorID", donorID));
                 cmd.Parameters.Add(new MySqlParameter("@paramPID", PID));
-                cmd.ExecuteNonQuery();
+                work = cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
+
+            return work;
         }
 
 

@@ -2,8 +2,7 @@
 {
     public class PrizeTransaction
     {
-        public static int TID { get; set; }
-        public static int donorID { get; set; }
-        public static int PID { get; set; }
+        public int donorID { get; set; }
+        public int PID { get; set; }
     }
 }
