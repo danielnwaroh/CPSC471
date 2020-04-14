@@ -154,3 +154,31 @@ BEGIN
     where BID = paramBID;
 END //
 
+DELIMITER ;
+
+DROP procedure IF EXISTS `getEvent`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getEvent`(IN paramEventDate date)
+BEGIN
+    select * from events
+    where EventDate = paramEventDate;
+        
+END //
+
+DELIMITER ;
+
+DROP procedure IF EXISTS `addEvent`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addEvent`(IN paramEventDate date, paramEventLocation varchar(50), paramClinicID int, paramManagerID int)
+BEGIN
+    INSERT into events (eventdate, eventlocation, volunteerid, clinicid, managerid) values (paramEventDate, paramEventLocation,paramClinicID, paramManagerID);
+END //
+
+DELIMITER ;
+
+DROP procedure IF EXISTS ``;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addEvent`(IN paramDonorID int, paramPID int)
+BEGIN
+    Insert into prizetransaction (donorid, pid) values (paramDonorID, paramPID);
+END //
