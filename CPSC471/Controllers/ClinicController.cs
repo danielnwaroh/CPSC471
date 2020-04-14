@@ -75,7 +75,7 @@ namespace CPSC471.Controllers
             DBcon.UpdateDonorName(conn, donor.DonorID, donor.Name, "updateDonorName");
         }
         
-        // PUT Clininc/AddDonorPoints
+        // PUT Clinic/AddDonorPoints
         [HttpPut]
         [Route("Clinic/AddDonorPoints")]
         public void AddDonorPoints([FromBody] Donor donor)
@@ -91,5 +91,17 @@ namespace CPSC471.Controllers
             DBcon.UpdateBloodStorage(conn, bloodStorage.BID, bloodStorage.Shipped, "updateBloodStorage");
         }
         
+        // GET /Clinic/getEvent?date=2020-04-09
+        [HttpGet]
+        [Route("Clinic/getEvent")]
+        public string getEvent(string date)
+        {
+            string json = DBcon.GetEvent(conn, date, "getEvent");
+
+            Console.WriteLine(json);
+
+            return json;
+        }
+
     }
 }

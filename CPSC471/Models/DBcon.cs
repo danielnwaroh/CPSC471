@@ -409,6 +409,27 @@ namespace CPSC471.Models
             cmd.Connection.Close();
         }
 
+        public static string GetEvent(MySqlConnection conn, string date, string stp)
+        {
+            MySqlCommand cmd = new MySqlCommand(stp, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@paramEventDate", date);
+            MySqlDataReader rdr = cmd.ExecuteReader();
+
+            List<DonorNameBloodType> eventList = new List<DonorNameBloodType>();
+            while (rdr.Read())
+            {
+                Console.WriteLine(rdr[0] + " --- " + rdr[1]);
+                eventList.Add(new Models.Events()
+                {
+                    Name = Convert.ToString(rdr[0]), BloodType = Convert.ToString(rdr[1])
+                });
+            }
+            rdr.Close();
+            string json = JsonConvert.SerializeObject(new {results = eventList}, Formatting.Indented);
+            return json;
+        }
+
 
     }
 }
