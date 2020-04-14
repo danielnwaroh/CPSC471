@@ -468,6 +468,65 @@ namespace CPSC471.Models
             Console.WriteLine("done");
             cmd.Connection.Close();
         }
+        
+        public static string GetEvent(MySqlConnection conn, string date, string stp)
+        {
+            MySqlCommand cmd = new MySqlCommand(stp, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@paramEventDate", date);
+            MySqlDataReader rdr = cmd.ExecuteReader();
+
+            List<Events> eventList = new List<Events>();
+            while (rdr.Read())
+            {
+                Console.WriteLine(rdr[0] + " --- " + rdr[1] + "---" + rdr[2] + "---" + rdr[3] );
+                eventList.Add(new Models.Events()
+                {
+                    EventDate = Convert.ToString(rdr[0]), EventLocation = Convert.ToString(rdr[1]),
+                    ClinicID = Convert.ToInt16(rdr[2]), ManagerID = Convert.ToInt32(rdr[3])
+                });
+            }
+            rdr.Close();
+            string json = JsonConvert.SerializeObject(new {results = eventList}, Formatting.Indented);
+            return json;
+        }
+        
+        public static void InsertEvent(MySqlConnection conn, Events events, string stp)
+        {
+            MySqlCommand cmd = new MySqlCommand(stp, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                cmd.Parameters.Add(new MySqlParameter("@paramEventDate", events.EventDate));
+                cmd.Parameters.Add(new MySqlParameter("@paramEventLocation", events.EventLocation));
+                cmd.Parameters.Add(new MySqlParameter("@paramClinicID", events.ClinicID));
+                cmd.Parameters.Add(new MySqlParameter("@paramManagerID", events.ManagerID));
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            Console.WriteLine("done");
+            cmd.Connection.Close();
+        }
+        
+        
+        public static void InsertPrizeTransaction(MySqlConnection conn, in int donorID, in int PID, string stp)
+        {
+            MySqlCommand cmd = new MySqlCommand(stp, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                cmd.Parameters.Add(new MySqlParameter("@paramDonorID", donorID));
+                cmd.Parameters.Add(new MySqlParameter("@paramPID", PID));
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
 
 
     }

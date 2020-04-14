@@ -21,7 +21,9 @@
         <e p="Donor.cs" t="Include" />
         <e p="DonorNameBloodType.cs" t="Include" />
         <e p="Employee.cs" t="Include" />
+        <e p="Events.cs" t="Include" />
         <e p="Hospital.cs" t="Include" />
+        <e p="PrizeTransaction.cs" t="Include" />
       </e>
       <e p="obj" t="ExcludeRecursive">
         <e p="Debug" t="Include">

@@ -83,5 +83,26 @@ namespace CPSC471.Controllers
             return "Update(PUT) was successful"; 
         }
         
+        // GET /Clinic/getEvent?date=2020-04-09
+        [HttpGet]
+        [Route("Clinic/getEvent")]
+        public string getEvent(string date)
+        {
+            string json = DBcon.GetEvent(conn, date, "getEvent");
+
+            Console.WriteLine(json);
+
+            return json;
+        }
+        
+        // POST /Clinic/AddPrizeTransaction
+        [HttpPost]
+        [Route("Clinic/AddPrizeTransaction")]
+        public string AddPrizeTransaction([FromBody] PrizeTransaction prizeTransaction)
+        {
+            DBcon.InsertPrizeTransaction(conn, PrizeTransaction.donorID, PrizeTransaction.PID, "addPrizeTransaction");
+            return "done";
+        }
+        
     }
 }
