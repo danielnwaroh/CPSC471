@@ -101,18 +101,24 @@ namespace CPSC471.Controllers
         public string AddPrizeTransaction([FromBody] PrizeTransaction prizeTransaction)
         {
             var worked = DBcon.InsertPrizeTransaction(conn, prizeTransaction.donorID, prizeTransaction.PID, "addPrizeTransaction");
-            if (worked == 0)
+            switch (worked)
             {
-                return "Transaction invalid";
-            } else if (worked == -1)
-
-            {
-                return "error in procedure";
+                case 0:
+                    return "Transaction invalid";
+                case -1:
+                    return "error in procedure";
+                default:
+                    return "Transaction complete";
             }
-            else
-            {
-                return "Transaction complete";
-            }
+        }
+        
+        // PUT /Clinic/UpdatePrize
+        [HttpPut]
+        [Route("Clinic/UpdatePrize")]
+        public string UpdatePrize([FromBody] Prize prize)
+        {
+            DBcon.UpdatePrize(conn, prize.PID, prize.Quantity, prize.PointsPrize, "UpdatePrize");
+            return "Prize Information Updated";
         }
     }
 }

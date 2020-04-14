@@ -516,7 +516,7 @@ namespace CPSC471.Models
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
             cmd.CommandType = CommandType.StoredProcedure;
-            var work = -1;
+            int work = -1;
             try
             {
                 cmd.Parameters.Add(new MySqlParameter("@paramDonorID", donorID));
@@ -527,10 +527,26 @@ namespace CPSC471.Models
             {
                 Console.WriteLine(ex.Message);
             }
-
+            Console.WriteLine(work);
             return work;
         }
 
 
+        public static void UpdatePrize(MySqlConnection conn,int PID, int qty,int points, string stp)
+        {
+            MySqlCommand cmd = new MySqlCommand(stp, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                cmd.Parameters.Add(new MySqlParameter("@paramPID", PID));
+                cmd.Parameters.Add(new MySqlParameter("@paramQuantity", qty));
+                cmd.Parameters.Add(new MySqlParameter("@paramPointsPrice", points));
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
     }
 }

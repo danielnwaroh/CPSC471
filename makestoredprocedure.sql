@@ -199,10 +199,21 @@ DELIMITER ;
 
 DROP procedure IF EXISTS `updateDonorQty`;
 DELIMITER //
-CREATE DEFINER=`root`@`localhost` PROCEDURE `updateDonorQty`(IN required int, have int, donorID int, pID int, qty int)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updateDonorQty`(IN paramrequired int, paramhave int, paramDonorID int, parampID int, paramqty int)
 BEGIN
     UPDATE prize, donor
     set
-        prize.Quantity = qty - 1, donor.Points = have - required
-    Where prize.PID = pID AND donor.DonorID = donorID;
+        prize.Quantity = paramqty - 1, donor.Points = paramhave - paramrequired
+    Where prize.PID = parampID AND donor.DonorID = paramDonorID;
 END //
+
+DELIMITER ;
+
+DROP procedure  IF EXISTS `UpdatePrize`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `UpdatePrize`(IN paramPID int, paramQuantity int, paramPointsPrize int)
+BEGIN 
+    UPDATE prize
+        set prize.Quantity = paramQuantity, prize.PointsPrice = paramPointsPrize
+    where prize.PID = paramPID;
+end //
