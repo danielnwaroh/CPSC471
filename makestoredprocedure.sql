@@ -229,3 +229,13 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `AddPrize`(IN paramQuantity int, par
 BEGIN
     Insert into prize (Quantity, PointsPrice) values (paramQuantity, paramPointsPrice);
 end //
+
+DELIMITER ;
+
+DROP procedure  IF EXISTS `AddRequest`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AddRequest`(IN paramDateBy date, paramDateReq date, paramClinicID int, paramHID int)
+BEGIN
+    Insert Into request (DateBy, DateReq, ClinicID, HospitalID, isApproved)
+    values (paramDateBy, paramDateReq, paramClinicID, paramHID, false);
+end //

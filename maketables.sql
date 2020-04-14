@@ -71,6 +71,7 @@ create table bloodstorageapi.request (
     ClinicID int not null,
     DateCompleted date,
     HospitalID int not null,
+    isApproved boolean not null,
     foreign key (ClinicID) references bloodstorageapi.clinic(ClinicID),
     foreign key (HospitalID) references bloodstorageapi.hospital(HID)
 );
@@ -185,9 +186,9 @@ insert into prizetransaction (donorID, PID) values(5,5);
 delete from request;
 alter table request auto_increment = 1;
 
-insert into request (DateBy, DateReq, DateCompleted, ClinicID, HospitalID) values ('2020-06-01', '2020-04-09', null, 1, 1);
-insert into request (DateBy, DateReq, DateCompleted, ClinicID, HospitalID) values ('2020-06-02', '2020-04-09', null, 2, 2);
-insert into request (DateBy, DateReq, DateCompleted, ClinicID, HospitalID) values ('2020-09-03', '2020-04-09', null, 3, 3);
-insert into request (DateBy, DateReq, DateCompleted, ClinicID, HospitalID) values ('2020-07-04', '2020-04-09', null, 4, 4);
-insert into request (DateBy, DateReq, DateCompleted, ClinicID, HospitalID) values ('2020-08-05', '2020-04-09', null, 5, 5);
+insert into request (DateBy, DateReq, DateCompleted, ClinicID, HospitalID, isApproved) values ('2020-06-01', '2020-04-09', null, 1, 1, false);
+insert into request (DateBy, DateReq, DateCompleted, ClinicID, HospitalID, isApproved) values ('2020-06-02', '2020-04-09', null, 2, 2, false);
+insert into request (DateBy, DateReq, DateCompleted, ClinicID, HospitalID, isApproved) values ('2020-09-03', '2020-04-09', null, 3, 3, false);
+insert into request (DateBy, DateReq, DateCompleted, ClinicID, HospitalID, isApproved) values ('2020-07-04', '2020-04-09', null, 4, 4, false);
+insert into request (DateBy, DateReq, DateCompleted, ClinicID, HospitalID, isApproved) values ('2020-08-05', '2020-04-09', null, 5, 5, false);
 

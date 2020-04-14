@@ -40,5 +40,14 @@ namespace CPSC471.Controllers
             DBcon.UpdateHospitalName(conn, hospital.HID, hospital.HospitalName, "updateHospitalName");
             return "Update was successful";
         }
+        
+        // POST Hostpital/AddRequest
+        [HttpPost]
+        [Route("Hospital/AddRequest")]
+        public string AddRequest([FromBody] Request request)
+        {
+            DBcon.AddRequest(conn, request.DateBy, request.DateReq, request.ClinicId, request.HospitalID, "AddRequest");
+            return "Request Made";
+        }
     }
 }
