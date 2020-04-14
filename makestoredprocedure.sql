@@ -178,7 +178,7 @@ DELIMITER ;
 
 DROP procedure IF EXISTS `addPrizeTransaction`;
 DELIMITER //
-CREATE DEFINER=`root`@`localhost` PROCEDURE `addEvent`(IN paramDonorID int, paramPID int)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addPrizeTransaction`(IN paramDonorID int, paramPID int)
 BEGIN
     Insert into prizetransaction (donorid, pid) values (paramDonorID, paramPID);
 END //
