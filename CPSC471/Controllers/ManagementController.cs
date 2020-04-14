@@ -55,13 +55,22 @@ namespace CPSC471.Controllers
             return json;
         }
         
-        // POST
+        // POST Management/InsertEvent
         [HttpPost]
         [Route("Management/InsertEvent")]
         public string InsertEvent([FromBody] Events events)
         {
             DBcon.InsertEvent(conn, events, "addEvent");
             return "Insert successful";
+        }
+        
+        // POST Management/AddPrize
+        [HttpPost]
+        [Route("Management/AddPrize")]
+        public string AddPrize([FromBody] Prize prize)
+        {
+            DBcon.AddPrize(conn, prize.Quantity, prize.PointsPrice, "AddPrize");
+            return "added prize";
         }
     }
 }

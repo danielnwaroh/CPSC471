@@ -220,3 +220,12 @@ BEGIN
         set prize.Quantity = paramQuantity, prize.PointsPrice = paramPointsPrice
     where prize.PID = paramPID;
 end //
+
+DELIMITER ;
+
+DROP procedure  IF EXISTS `AddPrize`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AddPrize`(IN paramQuantity int, paramPointsPrice int)
+BEGIN
+    Insert into prize (Quantity, PointsPrice) values (paramQuantity, paramPointsPrice);
+end //

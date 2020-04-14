@@ -9,6 +9,7 @@ using System.Threading;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
+using Org.BouncyCastle.Asn1.Cms;
 
 namespace CPSC471.Models
 {
@@ -541,14 +542,27 @@ namespace CPSC471.Models
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
             cmd.CommandType = CommandType.StoredProcedure;
-            Console.WriteLine(PID);
-            Console.WriteLine(Quantity);
-            Console.WriteLine(PointsPrice);
             try
             {
                 cmd.Parameters.Add(new MySqlParameter("@paramPID", PID));
                 cmd.Parameters.Add(new MySqlParameter("@paramQuantity", Quantity));
                 cmd.Parameters.Add(new MySqlParameter("@paramPointsPrice", PointsPrice));
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public static void AddPrize(MySqlConnection conn,int prizeQuantity, int prizePointsPrice, string stp)
+        {
+            MySqlCommand cmd = new MySqlCommand(stp, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                cmd.Parameters.Add(new MySqlParameter("@paramQuantity", prizeQuantity));
+                cmd.Parameters.Add(new MySqlParameter("@paramPointsPrice", prizePointsPrice));
                 cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
