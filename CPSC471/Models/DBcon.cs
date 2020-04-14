@@ -416,13 +416,14 @@ namespace CPSC471.Models
             cmd.Parameters.AddWithValue("@paramEventDate", date);
             MySqlDataReader rdr = cmd.ExecuteReader();
 
-            List<DonorNameBloodType> eventList = new List<DonorNameBloodType>();
+            List<Events> eventList = new List<Events>();
             while (rdr.Read())
             {
-                Console.WriteLine(rdr[0] + " --- " + rdr[1]);
+                Console.WriteLine(rdr[0] + " --- " + rdr[1] + "---" + rdr[2] + "---" + rdr[3] );
                 eventList.Add(new Models.Events()
                 {
-                    Name = Convert.ToString(rdr[0]), BloodType = Convert.ToString(rdr[1])
+                    EventDate = Convert.ToString(rdr[0]), EventLocation = Convert.ToString(rdr[1]),
+                    ClinicID = Convert.ToInt16(rdr[2]), ManagerID = Convert.ToInt32(rdr[3])
                 });
             }
             rdr.Close();

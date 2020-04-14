@@ -1,4 +1,4 @@
-﻿namespace DefaultNamespace
+﻿namespace CPSC471.Models
 {
     public class Events
     {
