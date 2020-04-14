@@ -178,21 +178,24 @@ DELIMITER ;
 
 DROP procedure IF EXISTS `addPrizeTransaction`;
 DELIMITER //
-CREATE DEFINER=`root`@`localhost` PROCEDURE `addPrizeTransaction`(IN paramDonorID int, paramPID int)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addPrizeTransaction`(IN paramDonorID int, paramPID int, OUT paramWork int)
 BEGIN
     Set @pointsreq = (select PointsPrice from prize where prize.PID = paramPID);
     Set @pointshave = (select Points from donor where donor.DonorID = paramDonorID);
     Set @qty = (Select Quantity from prize where prize.PID = paramPID);
+    
     If (@pointsreq<=@pointshave AND (@pointsreq != 0) AND (@qty > 0)) THEN
         Insert into prizetransaction (donorID, PID) values (paramDonorID, paramPID);
-    end if;
-    If (@pointsreq<=@pointshave AND (@pointsreq != 0) AND (@qty > 0)) Then
+        Set paramWork = 1;
         CALL updateDonorQty(@pointsreq,@pointshave, paramDonorID, paramPID, @qty);
+    Else 
+        set ParamWork = 0;
     end if;
     
     set @pointsreq = null;
     set @pointshave = null;
     set @qty = null;
+    
 END //
 
 DELIMITER ;

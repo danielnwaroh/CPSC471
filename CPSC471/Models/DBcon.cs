@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing.Printing;
 using System.Threading;
 using MySql.Data;
 using MySql.Data.MySqlClient;
@@ -521,13 +522,17 @@ namespace CPSC471.Models
             {
                 cmd.Parameters.Add(new MySqlParameter("@paramDonorID", donorID));
                 cmd.Parameters.Add(new MySqlParameter("@paramPID", PID));
-                work = cmd.ExecuteNonQuery();
+                cmd.Parameters.Add(new MySqlParameter("@paramWork", work));
+                cmd.Parameters["@paramWork"].Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                work = (Int32)cmd.Parameters["@paramWork"].Value;
+                return work;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
-            Console.WriteLine(work);
+
             return work;
         }
 
