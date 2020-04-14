@@ -185,17 +185,24 @@ BEGIN
     Set @qty = (Select Quantity from prize where prize.PID = paramPID);
     If (@pointsreq<=@pointshave AND (@pointsreq != 0) AND (@qty > 0)) THEN
         Insert into prizetransaction (donorID, PID) values (paramDonorID, paramPID);
-        
-        UPDATE prize
-        set Quantity = @qty - 1
-        Where prize.PID = paramPID;
-        
-        UPDATE donor
-        set Points = @pointshave - @pointsreq
-        where donor.DonorID = paramDonorID;
-    ELSE 
-        Signal sqlstate '42000'
-            SET MESSAGE_TEXT = 'Not enough Points.';
     end if;
-          
+    If (@pointsreq<=@pointshave AND (@pointsreq != 0) AND (@qty > 0)) Then
+        CALL updateDonorQty(@pointsreq,@pointshave, paramDonorID, paramPID, @qty);
+    end if;
+    
+    set @pointsreq = null;
+    set @pointshave = null;
+    set @qty = null;
+END //
+
+DELIMITER ;
+
+DROP procedure IF EXISTS `updateDonorQty`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updateDonorQty`(IN required int, have int, donorID int, pID int, qty int)
+BEGIN
+    UPDATE prize, donor
+    set
+        prize.Quantity = qty - 1, donor.Points = have - required
+    Where prize.PID = pID AND donor.DonorID = donorID;
 END //

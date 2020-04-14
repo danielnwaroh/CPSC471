@@ -15,7 +15,7 @@ namespace CPSC471.Controllers
         [Route("Clinic/AllDonors")]
         public string GetAllDonors()
         {
-            string json = DBcon.RetrieveAllDonors(conn, "getAllDonors");
+            var json = DBcon.RetrieveAllDonors(conn, "getAllDonors");
             return json;
         }
         
@@ -100,10 +100,10 @@ namespace CPSC471.Controllers
         [Route("Clinic/AddPrizeTransaction")]
         public string AddPrizeTransaction([FromBody] PrizeTransaction prizeTransaction)
         {
-            int worked = DBcon.InsertPrizeTransaction(conn, prizeTransaction.donorID, prizeTransaction.PID, "addPrizeTransaction");
+            var worked = DBcon.InsertPrizeTransaction(conn, prizeTransaction.donorID, prizeTransaction.PID, "addPrizeTransaction");
             if (worked == 0)
             {
-                return "Not enough Points for transaction";
+                return "Transaction invalid";
             } else if (worked == -1)
 
             {

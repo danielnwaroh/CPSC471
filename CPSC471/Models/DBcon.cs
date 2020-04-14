@@ -516,9 +516,7 @@ namespace CPSC471.Models
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
             cmd.CommandType = CommandType.StoredProcedure;
-            Console.WriteLine(donorID);
-            Console.WriteLine(PID);
-            int work = -1;
+            var work = -1;
             try
             {
                 cmd.Parameters.Add(new MySqlParameter("@paramDonorID", donorID));
