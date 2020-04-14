@@ -4,6 +4,6 @@
     {
         public int PID { get; set; }
         public int Quantity { get; set; }
-        public int PointsPrize { get; set; }
+        public int PointsPrice { get; set; }
     }
 }

@@ -537,15 +537,18 @@ namespace CPSC471.Models
         }
 
 
-        public static void UpdatePrize(MySqlConnection conn,int PID, int qty,int points, string stp)
+        public static void UpdatePrize(MySqlConnection conn, int PID, int Quantity, int PointsPrice, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
             cmd.CommandType = CommandType.StoredProcedure;
+            Console.WriteLine(PID);
+            Console.WriteLine(Quantity);
+            Console.WriteLine(PointsPrice);
             try
             {
                 cmd.Parameters.Add(new MySqlParameter("@paramPID", PID));
-                cmd.Parameters.Add(new MySqlParameter("@paramQuantity", qty));
-                cmd.Parameters.Add(new MySqlParameter("@paramPointsPrice", points));
+                cmd.Parameters.Add(new MySqlParameter("@paramQuantity", Quantity));
+                cmd.Parameters.Add(new MySqlParameter("@paramPointsPrice", PointsPrice));
                 cmd.ExecuteNonQuery();
             }
             catch (Exception ex)

@@ -117,7 +117,7 @@ namespace CPSC471.Controllers
         [Route("Clinic/UpdatePrize")]
         public string UpdatePrize([FromBody] Prize prize)
         {
-            DBcon.UpdatePrize(conn, prize.PID, prize.Quantity, prize.PointsPrize, "UpdatePrize");
+            DBcon.UpdatePrize(conn, prize.PID, prize.Quantity, prize.PointsPrice, "UpdatePrize");
             return "Prize Information Updated";
         }
     }

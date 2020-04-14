@@ -214,9 +214,9 @@ DELIMITER ;
 
 DROP procedure  IF EXISTS `UpdatePrize`;
 DELIMITER //
-CREATE DEFINER=`root`@`localhost` PROCEDURE `UpdatePrize`(IN paramPID int, paramQuantity int, paramPointsPrize int)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `UpdatePrize`(IN paramPID int, paramQuantity int, paramPointsPrice int)
 BEGIN 
     UPDATE prize
-        set prize.Quantity = paramQuantity, prize.PointsPrice = paramPointsPrize
+        set prize.Quantity = paramQuantity, prize.PointsPrice = paramPointsPrice
     where prize.PID = paramPID;
 end //
