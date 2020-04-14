@@ -432,5 +432,24 @@ namespace CPSC471.Models
         }
 
 
+        public static void InsertEvent(MySqlConnection conn, Events events, string stp)
+        {
+            MySqlCommand cmd = new MySqlCommand(stp, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                cmd.Parameters.Add(new MySqlParameter("@paramEventDate", events.EventDate));
+                cmd.Parameters.Add(new MySqlParameter("@paramEventLocation", events.EventLocation));
+                cmd.Parameters.Add(new MySqlParameter("@paramClinicID", events.ClinicID));
+                cmd.Parameters.Add(new MySqlParameter("@paramManagerID", events.ManagerID));
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            Console.WriteLine("done");
+            cmd.Connection.Close();
+        }
     }
 }

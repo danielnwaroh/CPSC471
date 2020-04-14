@@ -168,10 +168,10 @@ DELIMITER ;
 
 DROP procedure IF EXISTS `addEvent`;
 DELIMITER //
-CREATE DEFINER=`root`@`localhost` PROCEDURE `addEvent` (IN paramEventDate date, paramEventLocation varchar(50), paramClinicID int, paramMangerID int)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addEvent` (IN paramEventDate date, paramEventLocation varchar(50), paramClinicID int, paramManagerID int)
 BEGIN
     insert into events (eventdate, eventlocation, clinicid, ManagerID)
-    values (paramEventDate,paramEventLocation,paramClinicID, paramMangerID);
+    values (paramEventDate,paramEventLocation,paramClinicID, paramManagerID);
 END //
 
 DELIMITER ;
