@@ -249,3 +249,12 @@ BEGIN
 	SELECT * FROM donor
     WHERE BloodType = paramBloodType AND RHFactor = paramRHF;
 END //
+
+DELIMITER ;
+
+DROP procedure IF EXISTS `getAllRequests`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getAllRequests`()
+BEGIN
+	SELECT * FROM request;
+END //

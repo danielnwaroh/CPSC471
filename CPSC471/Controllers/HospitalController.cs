@@ -50,5 +50,22 @@ namespace CPSC471.Controllers
                 request.BloodType, request.RHFactor, "AddRequest");
             return "Request Made";
         }
+        
+        // GET Hospital/GetAllRequests
+        [HttpGet]
+        [Route("Hospital/GetAllRequests")]
+        public string RetrieveAllRequests()
+        {
+            string json = DBcon.RetrieveAllRequests(conn, "getAllRequests");
+            return json;
+        }
+        // GET Hospital/GetRequestByBloodType?bloodType=A&rhf=positive
+        [HttpGet]
+        [Route("Hospital/GetAllRequests")]
+        public string RetrieveRequestByBloodType(string bloodType, string rhf)
+        {
+            string json = DBcon.RetrieveRequestByBloodType(conn, bloodType, rhf, "getRequestByBloodType");
+            return json;
+        }
     }
 }
