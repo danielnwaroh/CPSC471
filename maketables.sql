@@ -20,8 +20,8 @@ create table bloodstorageapi.clinic (
 create table bloodstorageapi.donor (
     DonorID int not null primary key auto_increment,
     Name varchar(50) not null,
-    BloodType varchar(3) not null,
-    RHFactor varchar(10) not null,
+    BloodType varchar(2) not null,
+    RHFactor varchar(45) not null,
     Points int not null
 );
 
@@ -36,6 +36,7 @@ create table bloodstorageapi.volunteer (
 );
 
 create table bloodstorageapi.donation (
+	DonationID int not null primary key auto_increment,
 	DonationDate date not null,
     PointsEarned int not null,
     DonorID int not null,
@@ -45,7 +46,8 @@ create table bloodstorageapi.donation (
 create table bloodstorageapi.bloodstorage (
 	BID int not null primary key auto_increment,
     ShelfLife date not null,
-    BloodType varchar(3) not null,
+    BloodType varchar(2) not null,
+    RHFactor varchar(45) not null,
     Shipped boolean not null
 );
 
@@ -76,7 +78,7 @@ create table bloodstorageapi.request (
     ApprovedBy int,
     foreign key (ClinicID) references bloodstorageapi.clinic(ClinicID),
     foreign key (HospitalID) references bloodstorageapi.hospital(HID),
-    foreign key (ApprovedBy) references bloodstoarageapi.employee(EmployeeID)
+    foreign key (ApprovedBy) references bloodstorageapi.employee(EmployeeID)
 );
 
 create table bloodstorageapi.prize (
@@ -94,17 +96,17 @@ create table bloodstorageapi.prizetransaction (
 );
 
 create table employeeevents(
-	eventID date not null primary key,
-    employeeID int not null primary key,
+	eventID date not null,
+    employeeID int not null,
     foreign key (eventID) references bloodstorageapi.events(EventDate),
-    foreign key (eventID) references bloodstorageapi.employee(EmployeeID)
+    foreign key (employeeID) references bloodstorageapi.employee(EmployeeID)
 );
 
 create table volunteerevents(
-	eventID date not null primary key,
-    volunteerID int not null primary key,
+	eventID date not null,
+    volunteerID int not null,
     foreign key (eventID) references bloodstorageapi.events(EventDate),
-    foreign key (eventID) references bloodstorageapi.volunteer(VolunteerID));
+    foreign key (volunteerID) references bloodstorageapi.volunteer(VolunteerID));
 
 use bloodstorageapi;
 
@@ -139,20 +141,20 @@ insert into volunteer (Name, Role, Address, PhoneNumber, ClinicID) values ('Bruc
 delete from bloodstorage;
 alter table bloodstorage auto_increment = 1;
 
-insert into bloodstorage (ShelfLife, BloodType, Shipped) values ('2020-07-16', 'A+', TRUE);
-insert into bloodstorage (ShelfLife, BloodType, Shipped) values ('2020-06-16', 'O+', TRUE);
-insert into bloodstorage (ShelfLife, BloodType, Shipped) values ('2020-05-16', 'B+', TRUE);
-insert into bloodstorage (ShelfLife, BloodType, Shipped) values ('2020-08-16', 'O-', FALSE);
-insert into bloodstorage (ShelfLife, BloodType, Shipped) values ('2020-09-16', 'A+', FALSE);
+insert into bloodstorage (ShelfLife, BloodType, RHFactor, Shipped) values ('2020-07-16', 'A', 'positive', TRUE);
+insert into bloodstorage (ShelfLife, BloodType, RHFactor, Shipped) values ('2020-06-16', 'O', 'positive', TRUE);
+insert into bloodstorage (ShelfLife, BloodType, RHFactor, Shipped) values ('2020-05-16', 'B', 'positive', TRUE);
+insert into bloodstorage (ShelfLife, BloodType, RHFactor, Shipped) values ('2020-08-16', 'O', 'negative', FALSE);
+insert into bloodstorage (ShelfLife, BloodType, RHFactor, Shipped) values ('2020-09-16', 'A', 'positive', FALSE);
 
 delete from donor;
 alter table donor auto_increment = 1;
 
-insert into donor (Name, BloodType, RHFactor, Points) values ('Peter Parker', 'A+', 'positive', 50);
-insert into donor (Name, BloodType, RHFactor, Points) values ('Tony Stark', 'A-', 'negative', 50);
-insert into donor (Name, BloodType, RHFactor, Points) values ('Barack Obama', 'O+', 'positive', 50);
-insert into donor (Name, BloodType, RHFactor, Points) values ('Kanye West', 'A+', 'positive', 50);
-insert into donor (Name, BloodType, RHFactor, Points) values ('Kevin Durant', 'B+', 'positive', 50);
+insert into donor (Name, BloodType, RHFactor, Points) values ('Peter Parker', 'A', 'positive', 50);
+insert into donor (Name, BloodType, RHFactor, Points) values ('Tony Stark', 'A', 'negative', 50);
+insert into donor (Name, BloodType, RHFactor, Points) values ('Barack Obama', 'O', 'positive', 50);
+insert into donor (Name, BloodType, RHFactor, Points) values ('Kanye West', 'A', 'positive', 50);
+insert into donor (Name, BloodType, RHFactor, Points) values ('Kevin Durant', 'B', 'positive', 50);
 
 
 delete from donation;
@@ -202,9 +204,21 @@ insert into prizetransaction (donorID, PID) values(5,5);
 delete from request;
 alter table request auto_increment = 1;
 
-insert into request (DateBy, DateReq, DateCompleted, ClinicID, HospitalID, isApproved) values ('2020-06-01', '2020-04-09', null, 1, 1, false);
-insert into request (DateBy, DateReq, DateCompleted, ClinicID, HospitalID, isApproved) values ('2020-06-02', '2020-04-09', null, 2, 2, false);
-insert into request (DateBy, DateReq, DateCompleted, ClinicID, HospitalID, isApproved) values ('2020-09-03', '2020-04-09', null, 3, 3, false);
-insert into request (DateBy, DateReq, DateCompleted, ClinicID, HospitalID, isApproved) values ('2020-07-04', '2020-04-09', null, 4, 4, false);
-insert into request (DateBy, DateReq, DateCompleted, ClinicID, HospitalID, isApproved) values ('2020-08-05', '2020-04-09', null, 5, 5, false);
+insert into request (ClinicID, DateCompleted, HospitalID, Amount, BloodType, RHFactor, Approved, ApprovedBy) values (1, '2020-06-01', 1, 100, 'A', 'positive', false, 1);
+insert into request (ClinicID, DateCompleted, HospitalID, Amount, BloodType, RHFactor, Approved, ApprovedBy) values (2, '2020-07-01', 2, 100, 'O', 'negative', false, 2);
+insert into request (ClinicID, DateCompleted, HospitalID, Amount, BloodType, RHFactor, Approved, ApprovedBy) values (3, '2020-08-01', 3, 100, 'B', 'positive', false, 3);
+insert into request (ClinicID, DateCompleted, HospitalID, Amount, BloodType, RHFactor, Approved, ApprovedBy) values (4, '2020-09-01', 4, 100, 'AB', 'positive', false, 4);
+insert into request (ClinicID, DateCompleted, HospitalID, Amount, BloodType, RHFactor, Approved, ApprovedBy) values (5, '2020-10-11', 5, 100, 'O', 'positive', false, 5);
+
+insert into employeeevents(eventID, employeeID) values ('2020-05-09', 1);
+insert into employeeevents(eventID, employeeID) values ('2020-05-09', 2);
+insert into employeeevents(eventID, employeeID) values ('2020-05-09', 3);
+insert into employeeevents(eventID, employeeID) values ('2020-05-09', 4);
+insert into employeeevents(eventID, employeeID) values ('2020-05-09', 5);
+
+insert into volunteerevents(eventID, volunteerID) values ('2020-05-09', 1);
+insert into volunteerevents(eventID, volunteerID) values ('2020-05-09', 2);
+insert into volunteerevents(eventID, volunteerID) values ('2020-05-09', 3);
+insert into volunteerevents(eventID, volunteerID) values ('2020-05-09', 4);
+insert into volunteerevents(eventID, volunteerID) values ('2020-05-09', 5);
 
