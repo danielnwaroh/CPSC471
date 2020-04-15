@@ -47,7 +47,7 @@ namespace CPSC471.Controllers
         public string AddRequest([FromBody] Request request)
         {
             DBcon.AddRequest(conn, request.ClinicID, request.DateCompleted, request.HospitalID, request.Amount,
-                request.BloodType, request.RHFactor, request.Approved, request.ApprovedBy, "AddRequest");
+                request.BloodType, request.RHFactor, "AddRequest");
             return "Request Made";
         }
     }
