@@ -98,9 +98,7 @@ namespace CPSC471.Controllers
         public string getEvent(string date)
         {
             string json = DBcon.GetEvent(conn, date, "getEvent");
-
             Console.WriteLine(json);
-
             return json;
         }
         
@@ -110,15 +108,12 @@ namespace CPSC471.Controllers
         public string AddPrizeTransaction([FromBody] PrizeTransaction prizeTransaction)
         {
             var worked = DBcon.InsertPrizeTransaction(conn, prizeTransaction.donorID, prizeTransaction.PID, "addPrizeTransaction");
-            switch (worked)
+            return worked switch
             {
-                case 0:
-                    return "Transaction invalid";
-                case -1:
-                    return "error in procedure";
-                default:
-                    return "Transaction complete";
-            }
+                0 => "Transaction invalid",
+                -1 => "error in procedure",
+                _ => "Transaction complete"
+            };
         }
         
         // PUT /Clinic/UpdatePrize

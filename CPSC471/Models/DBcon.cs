@@ -1,15 +1,9 @@
 ﻿using System;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing.Printing;
-using System.Threading;
-using MySql.Data;
 using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
-using Org.BouncyCastle.Asn1.Cms;
+
 
 namespace CPSC471.Models
 {
@@ -273,7 +267,6 @@ namespace CPSC471.Models
                 string s = ex.Message;
                 Console.WriteLine(s);
             }
-
             Console.WriteLine("done");
             cmd.Connection.Close();
         }
@@ -352,11 +345,9 @@ namespace CPSC471.Models
             }
             catch (Exception ex)
             {
-                string s = ex.Message;
-                Console.WriteLine(s);
-                return s;
+                Console.WriteLine(ex.Message);
+                return ex.Message;
             }
-            
         }
 
         public static string RetrieveAllDonors(MySqlConnection conn, string stp)
@@ -384,9 +375,8 @@ namespace CPSC471.Models
             }
             catch (Exception ex)
             {
-                string s = ex.Message;
-                Console.WriteLine(s);
-                return s;
+                Console.WriteLine(ex.Message);
+                return ex.Message;
             }
         }
 
@@ -402,10 +392,8 @@ namespace CPSC471.Models
             }
             catch (Exception ex)
             {
-                string s = ex.Message;
-                Console.WriteLine(s);
+                Console.WriteLine(ex.Message);
             }
-
             Console.WriteLine("done");
             cmd.Connection.Close();
         }
@@ -422,13 +410,10 @@ namespace CPSC471.Models
             }
             catch (Exception ex)
             {
-                string s = ex.Message;
-                Console.WriteLine(s);
+                Console.WriteLine(ex.Message);
             }
-
             Console.WriteLine("done");
             cmd.Connection.Close();
-            
         }
         
         public static void AddDonorPoints(MySqlConnection conn, int donorId, int donorPoints, string stp)
@@ -443,10 +428,8 @@ namespace CPSC471.Models
             }
             catch (Exception ex)
             {
-                string s = ex.Message;
-                Console.WriteLine(s);
+                Console.WriteLine(ex.Message);
             }
-
             Console.WriteLine("done");
             cmd.Connection.Close();
         }
@@ -463,10 +446,8 @@ namespace CPSC471.Models
             }
             catch (Exception ex)
             {
-                string s = ex.Message;
-                Console.WriteLine(s);
+                Console.WriteLine(ex.Message);
             }
-
             Console.WriteLine("done");
             cmd.Connection.Close();
         }
@@ -617,9 +598,8 @@ namespace CPSC471.Models
             }
             catch (Exception ex)
             {
-                string s = ex.Message;
-                Console.WriteLine(s);
-                return s;
+                Console.WriteLine(ex.Message);
+                return ex.Message;
             }
         }
     }
