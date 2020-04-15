@@ -204,11 +204,11 @@ insert into prizetransaction (donorID, PID) values(5,5);
 delete from request;
 alter table request auto_increment = 1;
 
-insert into request (ClinicID, DateCompleted, HospitalID, Amount, BloodType, RHFactor, Approved, ApprovedBy) values (1, '2020-06-01', 1, 100, 'A', 'positive', false, 1);
-insert into request (ClinicID, DateCompleted, HospitalID, Amount, BloodType, RHFactor, Approved, ApprovedBy) values (2, '2020-07-01', 2, 100, 'O', 'negative', false, 2);
-insert into request (ClinicID, DateCompleted, HospitalID, Amount, BloodType, RHFactor, Approved, ApprovedBy) values (3, '2020-08-01', 3, 100, 'B', 'positive', false, 3);
-insert into request (ClinicID, DateCompleted, HospitalID, Amount, BloodType, RHFactor, Approved, ApprovedBy) values (4, '2020-09-01', 4, 100, 'AB', 'positive', false, 4);
-insert into request (ClinicID, DateCompleted, HospitalID, Amount, BloodType, RHFactor, Approved, ApprovedBy) values (5, '2020-10-11', 5, 100, 'O', 'positive', false, 5);
+insert into request (ClinicID, DateCompleted, HospitalID, Amount, BloodType, RHFactor, Approved, ApprovedBy) values (1, Null, 1, 100, 'A', 'positive', false, 1);
+insert into request (ClinicID, DateCompleted, HospitalID, Amount, BloodType, RHFactor, Approved, ApprovedBy) values (2, Null, 2, 100, 'O', 'negative', false, 2);
+insert into request (ClinicID, DateCompleted, HospitalID, Amount, BloodType, RHFactor, Approved, ApprovedBy) values (3, Null, 3, 100, 'B', 'positive', false, 3);
+insert into request (ClinicID, DateCompleted, HospitalID, Amount, BloodType, RHFactor, Approved, ApprovedBy) values (4, Null, 4, 100, 'AB', 'positive', false, 4);
+insert into request (ClinicID, DateCompleted, HospitalID, Amount, BloodType, RHFactor, Approved, ApprovedBy) values (5, Null, 5, 100, 'O', 'positive', false, 5);
 
 insert into employeeevents(eventID, employeeID) values ('2020-05-09', 1);
 insert into employeeevents(eventID, employeeID) values ('2020-05-09', 2);
