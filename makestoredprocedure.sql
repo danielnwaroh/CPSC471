@@ -234,10 +234,10 @@ DELIMITER ;
 
 DROP procedure  IF EXISTS `AddRequest`;
 DELIMITER //
-CREATE DEFINER=`root`@`localhost` PROCEDURE `AddRequest`(IN paramClinicID int, paramDateCompleted date, paramHospitalID int, paramAmount int, paramBloodType varchar(2), paramRHFactor varchar(45), paramApproved boolean, paramApprovedBy int )
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AddRequest`(IN paramClinicID int, paramDateCompleted date, paramHospitalID int, paramAmount int, paramBloodType varchar(2), paramRHFactor varchar(45))
 BEGIN
     Insert Into request (ClinicID, DateCompleted, HospitalID, Amount, BloodType, RHFactor, Approved, ApprovedBy)
-    values (paramClinicID, paramDateCompleted, paramHospitalID, paramAmount, paramBloodType, paramRHFactor, paramApproved, paramApprovedBy);
+    values (paramClinicID, paramDateCompleted, paramHospitalID, paramAmount, paramBloodType, paramRHFactor, 0, null);
 END //
 
 DELIMITER ;
