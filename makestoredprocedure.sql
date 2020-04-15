@@ -1,3 +1,5 @@
+use bloodstorageapi;
+
 DROP procedure IF EXISTS `getDonorByRHF`;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getDonorByRHF`(IN rhf CHAR(20))
