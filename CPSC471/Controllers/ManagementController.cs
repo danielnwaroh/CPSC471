@@ -9,7 +9,7 @@ namespace CPSC471.Controllers
     public class ManagementController : Controller
     {
         //getting connection
-        private MySqlConnection conn = DBcon.getconn();
+        private MySqlConnection conn = DBcon.GetConn();
         
         // GET Management/AllEmployees
         [HttpGet]
@@ -62,7 +62,7 @@ namespace CPSC471.Controllers
         public string InsertEvent([FromBody] Events events)
         {
             DBcon.InsertEvent(conn, events, "addEvent");
-            return "Insert successful";
+            return "Insertion was successful";
         }
         
         // POST Management/AddPrize
@@ -71,7 +71,7 @@ namespace CPSC471.Controllers
         public string AddPrize([FromBody] Prize prize)
         {
             DBcon.AddPrize(conn, prize.Quantity, prize.PointsPrice, "AddPrize");
-            return "added prize";
+            return "Added prize. Insertion was successful";
         }
         
         // POST Management/AddVolunteerEvent

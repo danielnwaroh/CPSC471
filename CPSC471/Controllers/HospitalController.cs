@@ -8,7 +8,7 @@ namespace CPSC471.Controllers
     public class HospitalController : Controller
     {
         //getting connection
-        MySqlConnection conn = DBcon.getconn();
+        MySqlConnection conn = DBcon.GetConn();
         
         // GET Hospital/{HospitalID}
         [HttpGet]
@@ -34,9 +34,6 @@ namespace CPSC471.Controllers
         [Route("Hospital/UpdateHospital")]
         public string UpdateHospital([FromBody] Hospital hospital)
         {
-            Console.WriteLine("HID: "+hospital.HID);
-            Console.WriteLine("Location: "+hospital.HospitalLocation);
-            Console.WriteLine("Name: "+hospital.HospitalName);
             DBcon.UpdateHospitalName(conn, hospital.HID, hospital.HospitalName, "updateHospitalName");
             return "Update was successful";
         }
@@ -48,7 +45,7 @@ namespace CPSC471.Controllers
         {
             DBcon.AddRequest(conn, request.ClinicID, request.DateCompleted, request.HospitalID, request.Amount,
                 request.BloodType, request.RHFactor, "AddRequest");
-            return "Request Made";
+            return "Request Made. Insertion was successful";
         }
         
         // GET Hospital/GetAllRequests
@@ -75,7 +72,7 @@ namespace CPSC471.Controllers
         {
             DBcon.UpdateRequest(conn, request.RequestID, request.Approved, request.ApprovedBy,
                 "updateRequest");
-            return "Update successful";
+            return "Update was successful";
 
         }
     }

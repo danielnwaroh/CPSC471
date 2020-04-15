@@ -16,7 +16,7 @@ namespace CPSC471.Models
             Console.WriteLine("DBcon");
         }
 
-        public static MySqlConnection getconn()
+        public static MySqlConnection GetConn()
         {
             MySqlConnection conn =
                 new MySqlConnection(

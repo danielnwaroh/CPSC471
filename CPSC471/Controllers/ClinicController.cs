@@ -8,7 +8,7 @@ namespace CPSC471.Controllers
     public class ClinicController : Controller
     {
         //getting connection
-        MySqlConnection conn = DBcon.getconn();
+        MySqlConnection conn = DBcon.GetConn();
         
         // GET Clinic/AllDonors
         [HttpGet]
@@ -71,7 +71,7 @@ namespace CPSC471.Controllers
         public string UpdateDonorName([FromBody] Donor donor)
         {
             DBcon.UpdateDonorName(conn, donor.DonorID, donor.Name, "updateDonorName");
-            return "Update(PUT) was successful";
+            return "Update was successful";
         }
         
         // PUT Clinic/AddDonorPoints
@@ -80,7 +80,7 @@ namespace CPSC471.Controllers
         public string AddDonorPoints([FromBody] Donor donor)
         {
             DBcon.AddDonorPoints(conn, donor.DonorID, donor.Points, "addDonorPoints");
-            return "Update(PUT) was successful"; 
+            return "Update was successful"; 
         }
         
         // PUT Clinic/UpdateBloodStorage
@@ -89,7 +89,7 @@ namespace CPSC471.Controllers
         public string UpdateBloodStorage([FromBody] BloodStorage bloodStorage)
         {
             DBcon.UpdateBloodStorage(conn, bloodStorage.BID, bloodStorage.Shipped, "updateBloodStorage");
-            return "Update(PUT) was successful"; 
+            return "Update was successful"; 
         }
         
         // GET /Clinic/getEvent?date=2020-04-09
@@ -98,7 +98,6 @@ namespace CPSC471.Controllers
         public string getEvent(string date)
         {
             string json = DBcon.GetEvent(conn, date, "getEvent");
-            Console.WriteLine(json);
             return json;
         }
         
@@ -112,7 +111,7 @@ namespace CPSC471.Controllers
             {
                 0 => "Transaction invalid",
                 -1 => "error in procedure",
-                _ => "Transaction complete"
+                _ => "Transaction complete. Insertion was successful"
             };
         }
         
@@ -122,7 +121,7 @@ namespace CPSC471.Controllers
         public string UpdatePrize([FromBody] Prize prize)
         {
             DBcon.UpdatePrize(conn, prize.PID, prize.Quantity, prize.PointsPrice, "UpdatePrize");
-            return "Prize Information Updated";
+            return "Prize Information Updated. Update was successful";
         }
     }
 }
