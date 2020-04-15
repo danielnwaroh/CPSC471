@@ -22,7 +22,9 @@
           <e p="Donor.cs" t="Include" />
           <e p="DonorNameBloodType.cs" t="Include" />
           <e p="Employee.cs" t="Include" />
+          <e p="EventEmployee.cs" t="Include" />
           <e p="Events.cs" t="Include" />
+          <e p="EventVolunteer.cs" t="Include" />
           <e p="Hospital.cs" t="Include" />
           <e p="Prize.cs" t="Include" />
           <e p="PrizeTransaction.cs" t="Include" />

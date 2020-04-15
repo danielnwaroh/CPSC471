@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using CPSC471.Models;
 using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
@@ -71,6 +72,42 @@ namespace CPSC471.Controllers
         {
             DBcon.AddPrize(conn, prize.Quantity, prize.PointsPrice, "AddPrize");
             return "added prize";
+        }
+        
+        // POST Management/AddVolunteerEvent
+        [HttpPost]
+        [Route("Management/AddVolunteerEvent")]
+        public string AddVolunteerEvent([FromBody] EventVolunteer ev)
+        {
+            DBcon.AddVolunteerEvent(conn, ev.eventID, ev.volunteerID, "AddVolunteerEvent");
+            return "Volunteer " + ev.volunteerID + " added to " + ev.eventID;
+        }
+        
+        // GET Management/VolunteersEvent
+        [HttpGet]
+        [Route("Management/GetVolunteersEvent/{EventID}")]
+        public string GetVolunteersEvent(string EventID)
+        {
+            string json = DBcon.GetVolunteersEvent(conn, EventID, "GetVolunteersEvent");
+            return json;
+        }
+        
+        // POST Management/AddEmployeeEvent
+        [HttpPost]
+        [Route("Management/AddEmployeeEvent")]
+        public string AddEmployeeEvent([FromBody] EventEmployee ee)
+        {
+            DBcon.AddEmployeeEvent(conn, ee.eventID, ee.employeeID, "AddEmployeeEvent");
+            return "Employee " + ee.employeeID + " added to " + ee.eventID;
+        }
+        
+        // GET Management/EmployeeEvent
+        [HttpGet]
+        [Route("Management/EmployeeEvent/{EventID}")]
+        public string GetEmployeeEvent(string EventID)
+        {
+            string json = DBcon.GetEmployeeEvent(conn, EventID, "GetEmployeeEvent");
+            return json;
         }
     }
 }

@@ -249,3 +249,39 @@ BEGIN
 	SELECT * FROM donor
     WHERE BloodType = paramBloodType AND RHFactor = paramRHF;
 END //
+
+DELIMITER ;
+
+DROP procedure IF EXISTS `AddVolunteerEvent`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AddVolunteerEvent`(IN paramEventID date, paramVolunteerID int)
+BEGIN
+    INSERT into volunteerevents (eventID, volunteerID) values (paramEventID, paramvolunteerID);
+END //
+
+DELIMITER ;
+
+DROP procedure IF EXISTS `GetVolunteersEvent`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetVolunteersEvent`(IN paramEventID date)
+BEGIN
+    select * from volunteerevents where volunteerevents.eventID = paramEventID;
+END //
+
+DELIMITER ;
+
+DROP procedure IF EXISTS `AddEmployeeEvent`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AddEmployeeEvent`(IN paramEventID date, paramEmployeeID int)
+BEGIN
+    INSERT into employeeevents (eventID, employeeID) values (paramEventID, paramEmployeeID);
+END //
+
+DELIMITER ;
+
+DROP procedure IF EXISTS `GetEmployeeEvent`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetEmployeeEvent`(IN paramEventID date)
+BEGIN
+    select * from employeeevents where employeeevents.eventID = paramEventID;
+END //
