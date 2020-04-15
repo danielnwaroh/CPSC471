@@ -64,9 +64,20 @@ namespace CPSC471.Controllers
         [Route("Hospital/GetRequestByBloodType")]
         public string RetrieveRequestByBloodType(string bloodType, string rhf)
         {
-            Console.WriteLine(bloodType);
             string json = DBcon.RetrieveRequestByBloodType(conn, bloodType, rhf, "getRequestByBloodType");
             return json;
+        }
+        
+        // PUT Hospital/UpdateRequest
+        [HttpPut]
+        [Route("Hospital/UpdateRequest")]
+        public string UpdateRequest([FromBody] Request request)
+        {
+            Console.WriteLine("testing");
+            DBcon.UpdateRequest(conn, request.RequestID, request.Approved, request.ApprovedBy,
+                "updateRequest");
+            return "Update successful";
+
         }
     }
 }

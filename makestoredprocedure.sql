@@ -305,3 +305,14 @@ BEGIN
     WHERE BloodType = paramBloodType AND RHFactor = paramRHF;
 END //
 
+DELIMITER ;
+
+DROP procedure IF EXISTS `updateRequest`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updateRequest`(IN paramRequestID int, paramApproved bool, paramApprovedBy int)
+BEGIN
+    UPDATE request
+	set request.Approved = paramApproved, request.ApprovedBy = paramApprovedBy
+    where request.RequestID = paramRequestID;
+END //
+

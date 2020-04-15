@@ -761,5 +761,22 @@ namespace CPSC471.Models
                 return ex.Message;
             }
         }
+
+        public static void UpdateRequest(MySqlConnection conn, int requestId, Boolean approved, int approvedBy, string stp)
+        {
+            MySqlCommand cmd = new MySqlCommand(stp, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                cmd.Parameters.Add(new MySqlParameter("@paramRequestID", requestId));
+                cmd.Parameters.Add(new MySqlParameter("@paramApproved", approved));
+                cmd.Parameters.Add(new MySqlParameter("@paramApprovedBy", approvedBy));
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
     }
 }
