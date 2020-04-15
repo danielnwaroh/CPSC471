@@ -95,14 +95,14 @@ create table bloodstorageapi.prizetransaction (
     foreign key (PID) references bloodstorageapi.prize(PID)
 );
 
-create table employeeevents(
+create table bloodstorageapi.employeeevents(
 	eventID date not null,
     employeeID int not null,
     foreign key (eventID) references bloodstorageapi.events(EventDate),
     foreign key (employeeID) references bloodstorageapi.employee(EmployeeID)
 );
 
-create table volunteerevents(
+create table bloodstorageapi.volunteerevents(
 	eventID date not null,
     volunteerID int not null,
     foreign key (eventID) references bloodstorageapi.events(EventDate),
