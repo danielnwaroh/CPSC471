@@ -571,7 +571,7 @@ namespace CPSC471.Models
             }
         }
 
-        public static void AddRequest(MySqlConnection conn,int ClinicID, string DateCompleted, int HospitalID, int RequestAmount, string BloodType, string RHFactor, string stp)
+        public static void AddRequest(MySqlConnection conn,int ClinicID, string DateCompleted, int HospitalID, int Amount, string BloodType, string RHFactor, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
             cmd.CommandType = CommandType.StoredProcedure;
@@ -580,11 +580,9 @@ namespace CPSC471.Models
                 cmd.Parameters.Add(new MySqlParameter("@paramClinicID", ClinicID));
                 cmd.Parameters.Add(new MySqlParameter("@paramDateCompleted", DateCompleted));
                 cmd.Parameters.Add(new MySqlParameter("@paramHospitalID", HospitalID));
-                cmd.Parameters.Add(new MySqlParameter("@paramRequestAmount", RequestAmount));
+                cmd.Parameters.Add(new MySqlParameter("@paramAmount", Amount));
                 cmd.Parameters.Add(new MySqlParameter("@paramBloodType", BloodType));
                 cmd.Parameters.Add(new MySqlParameter("@paramRHFactor", RHFactor));
-
-
                 cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
