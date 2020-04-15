@@ -10,6 +10,7 @@ namespace CPSC471.Models
     public class DBcon
     {
 
+        //connect to database
         public DBcon()
         {
             Console.WriteLine("DBcon");
@@ -34,6 +35,7 @@ namespace CPSC471.Models
             return conn;
         }
 
+        //For clinicController to get donor by RHFactor
         public static string RetrieveDonorsByRhf(MySqlConnection conn, string rhf, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
@@ -63,6 +65,7 @@ namespace CPSC471.Models
             }
         }
 
+        //for ManagementController for getting all the information in bloodstorage table
         public static string RetrieveBloodStorage(MySqlConnection conn, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
@@ -87,6 +90,7 @@ namespace CPSC471.Models
             return json;
         }
 
+        //for ClinicController for getting donner information based on donorID
         public static string RetrieveDonorInformation(MySqlConnection conn, int donorId, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
@@ -120,6 +124,7 @@ namespace CPSC471.Models
             }
         }
 
+        //For HospitalController to get information of a Hospital based on HID
         public static string RetrieveHospitalInformation(MySqlConnection conn, int hospitalId, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
@@ -152,6 +157,7 @@ namespace CPSC471.Models
             }
         }
 
+        //For ManagementController to get employee information based on employeeID
         public static string RetrieveEmployeeInformation(MySqlConnection conn, int employeeId, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
@@ -188,6 +194,7 @@ namespace CPSC471.Models
             }
         }
 
+        //For ManagementController to get all the employees working out of a certain clinic
         public static string RetrieveAllEmployeesOfClinic(MySqlConnection conn, int clinicId, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
@@ -224,6 +231,7 @@ namespace CPSC471.Models
             }
         }
 
+        //For HospitalController, used to add a new hospital to the hospital table
         public static void AddHospital(MySqlConnection conn, string hospitalLocation, string hospitalName, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
@@ -249,6 +257,7 @@ namespace CPSC471.Models
             cmd.Connection.Close();
         }
 
+        //For ManagementController to add a new employee to the employee table
         public static void AddEmployee(MySqlConnection conn, string employeeAddress, string employeePhoneNumber,
             string employeeName, string employeeRole, int employeeClinicID, string stp)
         {
@@ -272,6 +281,7 @@ namespace CPSC471.Models
             cmd.Connection.Close();
         }
 
+        //For ClinicController, used to add more blood to the bloodstorage table
         public static string AddBloodStorage(MySqlConnection conn, string shelfLife, string bloodType, string rhfactor, Boolean shipped,
             string stp)
         {
@@ -299,6 +309,7 @@ namespace CPSC471.Models
 
         }
 
+        //For ClinicController to add a new donor to the donor table
         public static void AddDonor(MySqlConnection conn, string name, string bloodType, string rhFactor, int points,
             string stp)
         {
@@ -322,6 +333,7 @@ namespace CPSC471.Models
             cmd.Connection.Close();
         }
 
+        //For the managementController to get all the employees that work at the company
         public static string RetrieveAllEmployees(MySqlConnection conn, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
@@ -352,6 +364,7 @@ namespace CPSC471.Models
             }
         }
 
+        //For ClinicController to get all the donors in the system
         public static string RetrieveAllDonors(MySqlConnection conn, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
@@ -382,6 +395,7 @@ namespace CPSC471.Models
             }
         }
 
+        //for HospitalController to update information of a hospital
         public static void UpdateHospitalName(MySqlConnection conn, int hid, string hospitalName, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
@@ -400,6 +414,7 @@ namespace CPSC471.Models
             cmd.Connection.Close();
         }
 
+        //For ClinicController to update the name of a donor 
         public static void UpdateDonorName(MySqlConnection conn, int donorId, string donorName, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
@@ -418,6 +433,7 @@ namespace CPSC471.Models
             cmd.Connection.Close();
         }
 
+        //For ClinicController to add points to a donor
         public static void AddDonorPoints(MySqlConnection conn, int donorId, int donorPoints, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
@@ -436,6 +452,7 @@ namespace CPSC471.Models
             cmd.Connection.Close();
         }
 
+        //For ManagementController to update information on a bloodstorage
         public static void UpdateBloodStorage(MySqlConnection conn, int bid, Boolean shipped, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
@@ -454,6 +471,7 @@ namespace CPSC471.Models
             cmd.Connection.Close();
         }
 
+        //For ClinicController to get infomation on an event
         public static string GetEvent(MySqlConnection conn, string date, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
@@ -476,6 +494,7 @@ namespace CPSC471.Models
             return json;
         }
 
+        //For ManagementController to add a new event to the event table
         public static void InsertEvent(MySqlConnection conn, Events events, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
@@ -495,8 +514,8 @@ namespace CPSC471.Models
             Console.WriteLine("done");
             cmd.Connection.Close();
         }
-
-
+        
+        //For ClinicController to make a prize transaction
         public static int InsertPrizeTransaction(MySqlConnection conn, int donorID,int PID, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
@@ -520,7 +539,7 @@ namespace CPSC471.Models
             return work;
         }
 
-
+        //For ManagementController to update information on a prize
         public static void UpdatePrize(MySqlConnection conn, int PID, int Quantity, int PointsPrice, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
@@ -538,6 +557,7 @@ namespace CPSC471.Models
             }
         }
 
+        //For ManagementController to add a new prize to the prize table
         public static void AddPrize(MySqlConnection conn,int prizeQuantity, int prizePointsPrice, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
@@ -554,6 +574,7 @@ namespace CPSC471.Models
             }
         }
 
+        //For HosiptalController to make a new request for blood to the clinic
         public static void AddRequest(MySqlConnection conn,int ClinicID, string DateCompleted, int HospitalID, int Amount, string BloodType, string RHFactor, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
@@ -574,6 +595,7 @@ namespace CPSC471.Models
             }
         }
 
+        //For ClinicController to get donors by BloodType
         public static string RetrieveDonorByBloodType(MySqlConnection conn, string bloodType, string rhf, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
@@ -605,6 +627,7 @@ namespace CPSC471.Models
             }
         }
 
+        //For ManagementController to add a volunteer to an event
         public static void AddVolunteerEvent(MySqlConnection conn, string EventID, in int VolunteerID, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
@@ -621,6 +644,7 @@ namespace CPSC471.Models
             }
         }
 
+        //For ManagementController to get volunteers attending event
         public static string GetVolunteersEvent(MySqlConnection conn, string eventID, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
@@ -651,6 +675,7 @@ namespace CPSC471.Models
             }
         }
 
+        //For ManagementController to get employees attending event
         public static string GetEmployeeEvent(MySqlConnection conn, string eventID, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
@@ -682,6 +707,7 @@ namespace CPSC471.Models
             }
         }
 
+        //For ManagementController to add a employee to an event
         public static void AddEmployeeEvent(MySqlConnection conn, string EventID, in int EmployeeID, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
@@ -698,6 +724,7 @@ namespace CPSC471.Models
             }
         }
         
+        //For ManagementController to view all hospital requests
         public static string RetrieveAllRequests(MySqlConnection conn, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
@@ -730,6 +757,7 @@ namespace CPSC471.Models
             }
         }
         
+        //For ManagementController to get hospital requests by BloodType requested
         public static string RetrieveRequestByBloodType(MySqlConnection conn, string bloodType, string rhf, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
@@ -764,6 +792,7 @@ namespace CPSC471.Models
             }
         }
 
+        //For ManagementController to update a request
         public static void UpdateRequest(MySqlConnection conn, int requestId, Boolean approved, int approvedBy, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
