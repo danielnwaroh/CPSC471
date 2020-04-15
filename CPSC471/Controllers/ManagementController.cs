@@ -83,7 +83,7 @@ namespace CPSC471.Controllers
             return "Volunteer " + ev.volunteerID + " added to " + ev.eventID;
         }
         
-        // GET Management/VolunteersEvent
+        // GET Management/GetVolunteersEvent
         [HttpGet]
         [Route("Management/GetVolunteersEvent/{EventID}")]
         public string GetVolunteersEvent(string EventID)

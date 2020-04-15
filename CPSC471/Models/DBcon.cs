@@ -627,7 +627,7 @@ namespace CPSC471.Models
             cmd.CommandType = CommandType.StoredProcedure;
             try
             {
-                cmd.Parameters.AddWithValue("@EventID", eventID);
+                cmd.Parameters.AddWithValue("@paramEventID", eventID);
                 MySqlDataReader rdr = cmd.ExecuteReader();
 
                 IList<EventVolunteer> eventVolunteers = new List<EventVolunteer>();
@@ -657,7 +657,7 @@ namespace CPSC471.Models
             cmd.CommandType = CommandType.StoredProcedure;
             try
             {
-                cmd.Parameters.AddWithValue("@EventID", eventID);
+                cmd.Parameters.AddWithValue("@paramEventID", eventID);
                 MySqlDataReader rdr = cmd.ExecuteReader();
 
                 IList<EventEmployee> eventEmployee = new List<EventEmployee>();
