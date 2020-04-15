@@ -570,23 +570,5 @@ namespace CPSC471.Models
                 Console.WriteLine(ex.Message);
             }
         }
-
-        public static void AddRequest(MySqlConnection conn, string DateBy, string DateReq, in int ClinicID, in int HospitalID, string stp)
-        {
-            MySqlCommand cmd = new MySqlCommand(stp, conn);
-            cmd.CommandType = CommandType.StoredProcedure;
-            try
-            {
-                cmd.Parameters.Add(new MySqlParameter("@paramDateby", DateBy));
-                cmd.Parameters.Add(new MySqlParameter("@paramDateReq", DateReq));
-                cmd.Parameters.Add(new MySqlParameter("@paramClinicID", ClinicID));
-                cmd.Parameters.Add(new MySqlParameter("@paramHID", HospitalID));
-                cmd.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
     }
 }

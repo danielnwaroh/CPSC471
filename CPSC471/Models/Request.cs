@@ -3,12 +3,14 @@
     public class Request
     {
         public int RequestID { get; set; }
-        public string DateBy { get; set; }
-        public string DateReq { get; set; }
-        public int ClinicId { get; set; }
+        public int ClinicID { get; set; }
         public string DateCompleted { get; set; }
         public int HospitalID { get; set; }
-        public bool isApproved { get; set; }
+        public int Amount { get; set; }
+        public string BloodType { get; set; }
+        public string RHFactor { get; set; }
+        public bool Approved { get; set; }
+        public int ApprovedBy { get; set; }
         
     }
 }

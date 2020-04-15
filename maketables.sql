@@ -76,7 +76,7 @@ create table bloodstorageapi.request (
     ApprovedBy int,
     foreign key (ClinicID) references bloodstorageapi.clinic(ClinicID),
     foreign key (HospitalID) references bloodstorageapi.hospital(HID),
-    foreign key (ApprovedBy) references bloodstoarageapi.employee(EmployeeID)
+    foreign key (ApprovedBy) references bloodstorageapi.employee(EmployeeID)
 );
 
 create table bloodstorageapi.prize (

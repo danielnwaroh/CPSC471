@@ -46,7 +46,8 @@ namespace CPSC471.Controllers
         [Route("Hospital/AddRequest")]
         public string AddRequest([FromBody] Request request)
         {
-            DBcon.AddRequest(conn, request.DateBy, request.DateReq, request.ClinicId, request.HospitalID, "AddRequest");
+            DBcon.AddRequest(conn, request.ClinicID, request.DateCompleted, request.HospitalID, request.Amount,
+                request.BloodType, request.RHFactor, request.Approved, request.ApprovedBy, "AddRequest");
             return "Request Made";
         }
     }
