@@ -51,7 +51,7 @@ namespace CPSC471.Controllers
         [Route("Clinic/AddBloodStorage")]
         public string AddBloodStorage([FromBody] BloodStorage bloodStorage)
         {
-            string response = DBcon.AddBloodStorage(conn, bloodStorage.ShelfLife, bloodStorage.BloodType, bloodStorage.Shipped,
+            string response = DBcon.AddBloodStorage(conn, bloodStorage.ShelfLife, bloodStorage.BloodType, bloodStorage.RHFactor, bloodStorage.Shipped,
                 "addBloodStorage");
             return response;
         }

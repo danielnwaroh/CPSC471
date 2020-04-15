@@ -77,10 +77,10 @@ DELIMITER ;
 
 DROP procedure IF EXISTS `addBloodStorage`;
 DELIMITER //
-CREATE DEFINER=`root`@`localhost` PROCEDURE `addBloodStorage`(IN paramShelfLife varchar(50), paramBloodType varchar(3), paramShipped boolean)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addBloodStorage`(IN paramShelfLife varchar(50), paramBloodType varchar(2), paramRHFactor varchar(45),  paramShipped boolean)
 BEGIN
 	SET @newid = (SELECT CAST(paramShelfLife AS date));
-	insert into bloodstorage (ShelfLife, BloodType, Shipped) values (@newid, paramBloodType, paramShipped);
+	insert into bloodstorage (ShelfLife, BloodType, RHFactor, Shipped) values (@newid, paramBloodType, paramRHFactor, paramShipped);
 END //
 
 DELIMITER ;

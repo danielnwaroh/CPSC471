@@ -73,7 +73,6 @@ namespace CPSC471.Controllers
         [Route("Hospital/UpdateRequest")]
         public string UpdateRequest([FromBody] Request request)
         {
-            Console.WriteLine("testing");
             DBcon.UpdateRequest(conn, request.RequestID, request.Approved, request.ApprovedBy,
                 "updateRequest");
             return "Update successful";

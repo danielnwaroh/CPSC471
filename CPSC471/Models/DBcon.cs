@@ -76,7 +76,8 @@ namespace CPSC471.Models
                 bloodList.Add(new BloodStorage
                 {
                     BID = Convert.ToInt32(rdr[0]), ShelfLife = Convert.ToString(rdr[1]),
-                    BloodType = Convert.ToString(rdr[2]), Shipped = Convert.ToInt32(rdr[3])
+                    BloodType = Convert.ToString(rdr[2]), RHFactor = Convert.ToString(rdr[3]),
+                    Shipped = Convert.ToBoolean(rdr[4])
                 });
             }
 
@@ -271,7 +272,7 @@ namespace CPSC471.Models
             cmd.Connection.Close();
         }
 
-        public static string AddBloodStorage(MySqlConnection conn, string shelfLife, string bloodType, int shipped,
+        public static string AddBloodStorage(MySqlConnection conn, string shelfLife, string bloodType, string rhfactor, Boolean shipped,
             string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
@@ -281,7 +282,8 @@ namespace CPSC471.Models
             {
                 cmd.Parameters.Add(new MySqlParameter("@paramShelfLife", shelfLife));
                 cmd.Parameters.Add(new MySqlParameter("@paramBloodType", bloodType));
-                cmd.Parameters.Add(new MySqlParameter("@paramShipped", Convert.ToBoolean(shipped)));
+                cmd.Parameters.Add(new MySqlParameter("@paramBloodType", rhfactor));
+                cmd.Parameters.Add(new MySqlParameter("@paramShipped", shipped));
                 cmd.ExecuteNonQuery();
                 cmd.Connection.Close();
                 return "Insertion was successful";
@@ -434,14 +436,14 @@ namespace CPSC471.Models
             cmd.Connection.Close();
         }
 
-        public static void UpdateBloodStorage(MySqlConnection conn, int bid, int shipped, string stp)
+        public static void UpdateBloodStorage(MySqlConnection conn, int bid, Boolean shipped, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
             cmd.CommandType = CommandType.StoredProcedure;
             try
             {
                 cmd.Parameters.Add(new MySqlParameter("@paramBID", bid));
-                cmd.Parameters.Add(new MySqlParameter("@paramShipped", Convert.ToBoolean(shipped)));
+                cmd.Parameters.Add(new MySqlParameter("@paramShipped", shipped));
                 cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
