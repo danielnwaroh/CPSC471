@@ -285,3 +285,23 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `GetEmployeeEvent`(IN paramEventID d
 BEGIN
     select * from employeeevents where employeeevents.eventID = paramEventID;
 END //
+
+DELIMITER ;
+
+DROP procedure IF EXISTS `getAllRequests`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getAllRequests`()
+BEGIN
+	SELECT * FROM request;
+END //
+
+DELIMITER ;
+
+DROP procedure IF EXISTS `getRequestByBloodType`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getRequestByBloodType`(IN paramBloodType varchar(2), paramRHF varchar(45))
+BEGIN
+	SELECT * FROM request
+    WHERE BloodType = paramBloodType AND RHFactor = paramRHF;
+END //
+

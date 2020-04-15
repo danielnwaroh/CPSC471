@@ -61,9 +61,10 @@ namespace CPSC471.Controllers
         }
         // GET Hospital/GetRequestByBloodType?bloodType=A&rhf=positive
         [HttpGet]
-        [Route("Hospital/GetAllRequests")]
+        [Route("Hospital/GetRequestByBloodType")]
         public string RetrieveRequestByBloodType(string bloodType, string rhf)
         {
+            Console.WriteLine(bloodType);
             string json = DBcon.RetrieveRequestByBloodType(conn, bloodType, rhf, "getRequestByBloodType");
             return json;
         }

@@ -695,5 +695,71 @@ namespace CPSC471.Models
                 Console.WriteLine(ex.Message);
             }
         }
+        
+        public static string RetrieveAllRequests(MySqlConnection conn, string stp)
+        {
+            MySqlCommand cmd = new MySqlCommand(stp, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                IList<Request> requestList = new List<Request>();
+                while (rdr.Read())
+                {
+                    requestList.Add(new Request
+                    {
+                        RequestID = Convert.ToInt32(rdr[0]), ClinicID = Convert.ToInt32(rdr[1]),
+                        DateCompleted = Convert.ToString(rdr[2]), HospitalID = Convert.ToInt32(rdr[3]),
+                        Amount = Convert.ToInt32(rdr[4]), BloodType = Convert.ToString(rdr[5]),
+                        RHFactor = Convert.ToString(rdr[6]), Approved = Convert.ToBoolean(rdr[7]),
+                        ApprovedBy = Convert.ToInt32(rdr[8])
+                    });
+                }
+
+                rdr.Close();
+                string json = JsonConvert.SerializeObject(new {results = requestList}, Formatting.Indented);
+                Console.WriteLine(json);
+                return json;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return ex.Message;
+            }
+        }
+        
+        public static string RetrieveRequestByBloodType(MySqlConnection conn, string bloodType, string rhf, string stp)
+        {
+            MySqlCommand cmd = new MySqlCommand(stp, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                cmd.Parameters.AddWithValue("@paramBloodType", bloodType);
+                cmd.Parameters.AddWithValue("@paramRHF", rhf);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                IList<Request> requestList = new List<Request>();
+                while (rdr.Read())
+                {
+                    requestList.Add(new Request
+                    {
+                        RequestID = Convert.ToInt32(rdr[0]), ClinicID = Convert.ToInt32(rdr[1]),
+                        DateCompleted = Convert.ToString(rdr[2]), HospitalID = Convert.ToInt32(rdr[3]),
+                        Amount = Convert.ToInt32(rdr[4]), BloodType = Convert.ToString(rdr[5]),
+                        RHFactor = Convert.ToString(rdr[6]), Approved = Convert.ToBoolean(rdr[7]),
+                        ApprovedBy = Convert.ToInt32(rdr[8])
+                    });
+                }
+
+                rdr.Close();
+                string json = JsonConvert.SerializeObject(new {results = requestList}, Formatting.Indented);
+                Console.WriteLine(json);
+                return json;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return ex.Message;
+            }
+        }
     }
 }
