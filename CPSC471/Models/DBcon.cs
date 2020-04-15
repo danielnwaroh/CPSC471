@@ -292,7 +292,7 @@ namespace CPSC471.Models
             {
                 cmd.Parameters.Add(new MySqlParameter("@paramShelfLife", shelfLife));
                 cmd.Parameters.Add(new MySqlParameter("@paramBloodType", bloodType));
-                cmd.Parameters.Add(new MySqlParameter("@paramBloodType", rhfactor));
+                cmd.Parameters.Add(new MySqlParameter("@paramRHFactor", rhfactor));
                 cmd.Parameters.Add(new MySqlParameter("@paramShipped", shipped));
                 cmd.ExecuteNonQuery();
                 cmd.Connection.Close();
