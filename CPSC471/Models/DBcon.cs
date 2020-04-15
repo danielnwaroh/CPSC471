@@ -570,5 +570,31 @@ namespace CPSC471.Models
                 Console.WriteLine(ex.Message);
             }
         }
+
+        public static void AddRequest(MySqlConnection conn,int ClinicID, string DateCompleted, int HospitalID, int RequestAmount, string BloodType, string RHFactor, in bool Approved, in int ApprovedBy, string stp)
+        {
+            MySqlCommand cmd = new MySqlCommand(stp, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                cmd.Parameters.Add(new MySqlParameter("@paramClinicID", ClinicID));
+                cmd.Parameters.Add(new MySqlParameter("@paramDateCompleted", DateCompleted));
+                cmd.Parameters.Add(new MySqlParameter("@paramHospitalID", HospitalID));
+                cmd.Parameters.Add(new MySqlParameter("@paramClinicID", ClinicID));
+                cmd.Parameters.Add(new MySqlParameter("@paramRequestAmount", RequestAmount));
+                cmd.Parameters.Add(new MySqlParameter("@paramBloodType", BloodType));
+                cmd.Parameters.Add(new MySqlParameter("@paramClinicID", ClinicID));
+                cmd.Parameters.Add(new MySqlParameter("@paramRHFactor", RHFactor));
+                cmd.Parameters.Add(new MySqlParameter("@paramClinicID", ClinicID));
+                cmd.Parameters.Add(new MySqlParameter("@paramApproved", Approved));
+                cmd.Parameters.Add(new MySqlParameter("@paramApprovedBy", ApprovedBy));
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
     }
 }
