@@ -294,7 +294,7 @@ namespace CPSC471.Models
                 return s;
             }
 
-            
+
         }
 
         public static void AddDonor(MySqlConnection conn, string name, string bloodType, string rhFactor, int points,
@@ -415,7 +415,7 @@ namespace CPSC471.Models
             Console.WriteLine("done");
             cmd.Connection.Close();
         }
-        
+
         public static void AddDonorPoints(MySqlConnection conn, int donorId, int donorPoints, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
@@ -451,7 +451,7 @@ namespace CPSC471.Models
             Console.WriteLine("done");
             cmd.Connection.Close();
         }
-        
+
         public static string GetEvent(MySqlConnection conn, string date, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
@@ -473,7 +473,7 @@ namespace CPSC471.Models
             string json = JsonConvert.SerializeObject(new {results = eventList}, Formatting.Indented);
             return json;
         }
-        
+
         public static void InsertEvent(MySqlConnection conn, Events events, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
@@ -493,8 +493,8 @@ namespace CPSC471.Models
             Console.WriteLine("done");
             cmd.Connection.Close();
         }
-        
-        
+
+
         public static int InsertPrizeTransaction(MySqlConnection conn, int donorID,int PID, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
@@ -587,7 +587,7 @@ namespace CPSC471.Models
                 {
                     donorList.Add(new Donor
                     {
-                        DonorID = Convert.ToInt32(rdr[0]), Name = Convert.ToString(rdr[1]), 
+                        DonorID = Convert.ToInt32(rdr[0]), Name = Convert.ToString(rdr[1]),
                         BloodType = Convert.ToString(rdr[2]), RHFactor = Convert.ToString(rdr[3]),
                         Points = Convert.ToInt32(rdr[4])
                     });
@@ -603,28 +603,73 @@ namespace CPSC471.Models
             }
         }
 
-        public static string RetrieveAllRequests(MySqlConnection conn, string stp)
+        public static void AddVolunteerEvent(MySqlConnection conn, string EventID, in int VolunteerID, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
             cmd.CommandType = CommandType.StoredProcedure;
             try
             {
+                cmd.Parameters.Add(new MySqlParameter("@paramEventID",EventID));
+                cmd.Parameters.Add(new MySqlParameter("@paramVolunteerID", VolunteerID));
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public static string GetVolunteersEvent(MySqlConnection conn, string eventID, string stp)
+        {
+            MySqlCommand cmd = new MySqlCommand(stp, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                cmd.Parameters.AddWithValue("@EventID", eventID);
                 MySqlDataReader rdr = cmd.ExecuteReader();
-                IList<Request> requestList = new List<Request>();
+
+                IList<EventVolunteer> eventVolunteers = new List<EventVolunteer>();
                 while (rdr.Read())
                 {
-                    requestList.Add(new Request
+                    eventVolunteers.Add(new EventVolunteer()
                     {
-                        RequestID = Convert.ToInt32(rdr[0]), ClinicID = Convert.ToInt32(rdr[1]),
-                        DateCompleted = Convert.ToString(rdr[2]), HospitalID = Convert.ToInt32(rdr[3]),
-                        Amount = Convert.ToInt32(rdr[4]), BloodType = Convert.ToString(rdr[5]),
-                        RHFactor = Convert.ToString(rdr[6]), Approved = Convert.ToBoolean(rdr[7]),
-                        ApprovedBy = Convert.ToInt32(rdr[8])
+                        eventID = Convert.ToString(rdr[0]),
+                        volunteerID = Convert.ToInt32(rdr[1]),
+                    });
+                }
+                rdr.Close();
+                string json = JsonConvert.SerializeObject(new {results = eventVolunteers}, Formatting.Indented);
+                Console.WriteLine(json);
+                return json;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return (ex.Message);
+            }
+        }
+
+        public static string GetEmployeeEvent(MySqlConnection conn, string eventID, string stp)
+        {
+            MySqlCommand cmd = new MySqlCommand(stp, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                cmd.Parameters.AddWithValue("@EventID", eventID);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                IList<EventEmployee> eventEmployee = new List<EventEmployee>();
+                while (rdr.Read())
+                {
+                    eventEmployee.Add(new EventEmployee()
+                    {
+                        eventID = Convert.ToString(rdr[0]),
+                        employeeID = Convert.ToInt32(rdr[1]),
                     });
                 }
 
                 rdr.Close();
-                string json = JsonConvert.SerializeObject(new {results = requestList}, Formatting.Indented);
+                string json = JsonConvert.SerializeObject(new {results = eventEmployee}, Formatting.Indented);
                 Console.WriteLine(json);
                 return json;
             }
@@ -634,38 +679,20 @@ namespace CPSC471.Models
                 return ex.Message;
             }
         }
-        
-        public static string RetrieveRequestByBloodType(MySqlConnection conn, string bloodType, string rhf, string stp)
+
+        public static void AddEmployeeEvent(MySqlConnection conn, string EventID, in int EmployeeID, string stp)
         {
             MySqlCommand cmd = new MySqlCommand(stp, conn);
             cmd.CommandType = CommandType.StoredProcedure;
             try
             {
-                cmd.Parameters.AddWithValue("@paramBloodType", bloodType);
-                cmd.Parameters.AddWithValue("@paramRHF", rhf);
-                MySqlDataReader rdr = cmd.ExecuteReader();
-                IList<Request> requestList = new List<Request>();
-                while (rdr.Read())
-                {
-                    requestList.Add(new Request
-                    {
-                        RequestID = Convert.ToInt32(rdr[0]), ClinicID = Convert.ToInt32(rdr[1]),
-                        DateCompleted = Convert.ToString(rdr[2]), HospitalID = Convert.ToInt32(rdr[3]),
-                        Amount = Convert.ToInt32(rdr[4]), BloodType = Convert.ToString(rdr[5]),
-                        RHFactor = Convert.ToString(rdr[6]), Approved = Convert.ToBoolean(rdr[7]),
-                        ApprovedBy = Convert.ToInt32(rdr[8])
-                    });
-                }
-
-                rdr.Close();
-                string json = JsonConvert.SerializeObject(new {results = requestList}, Formatting.Indented);
-                Console.WriteLine(json);
-                return json;
+                cmd.Parameters.Add(new MySqlParameter("@paramEventID",EventID));
+                cmd.Parameters.Add(new MySqlParameter("@paramEmployeeID", EmployeeID));
+                cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                return ex.Message;
             }
         }
     }

@@ -74,7 +74,7 @@ namespace CPSC471.Controllers
             return "Update(PUT) was successful";
         }
         
-        // PUT Clininc/AddDonorPoints
+        // PUT Clinic/AddDonorPoints
         [HttpPut]
         [Route("Clinic/AddDonorPoints")]
         public string AddDonorPoints([FromBody] Donor donor)

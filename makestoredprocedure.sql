@@ -162,7 +162,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `getEvent`(IN paramEventDate date)
 BEGIN
     select * from events
     where EventDate = paramEventDate;
-        
+
 END //
 
 DELIMITER ;
@@ -183,19 +183,19 @@ BEGIN
     Set @pointsreq = (select PointsPrice from prize where prize.PID = paramPID);
     Set @pointshave = (select Points from donor where donor.DonorID = paramDonorID);
     Set @qty = (Select Quantity from prize where prize.PID = paramPID);
-    
+
     If (@pointsreq<=@pointshave AND (@pointsreq != 0) AND (@qty > 0)) THEN
         Insert into prizetransaction (donorID, PID) values (paramDonorID, paramPID);
         Set paramWork = 1;
         CALL updateDonorQty(@pointsreq,@pointshave, paramDonorID, paramPID, @qty);
-    Else 
+    Else
         set ParamWork = 0;
     end if;
-    
+
     set @pointsreq = null;
     set @pointshave = null;
     set @qty = null;
-    
+
 END //
 
 DELIMITER ;
@@ -215,7 +215,7 @@ DELIMITER ;
 DROP procedure  IF EXISTS `UpdatePrize`;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `UpdatePrize`(IN paramPID int, paramQuantity int, paramPointsPrice int)
-BEGIN 
+BEGIN
     UPDATE prize
         set prize.Quantity = paramQuantity, prize.PointsPrice = paramPointsPrice
     where prize.PID = paramPID;
@@ -236,7 +236,7 @@ DROP procedure  IF EXISTS `AddRequest`;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `AddRequest`(IN paramClinicID int, paramDateCompleted date, paramHospitalID int, paramAmount int, paramBloodType varchar(2), paramRHFactor varchar(45), paramApproved boolean, paramApprovedBy int )
 BEGIN
-    Insert Into request (ClinicID, DateCompleted, HospitalID, Amount, BloodType, RHFactor, Approved, ApprovedBy) 
+    Insert Into request (ClinicID, DateCompleted, HospitalID, Amount, BloodType, RHFactor, Approved, ApprovedBy)
     values (paramClinicID, paramDateCompleted, paramHospitalID, paramAmount, paramBloodType, paramRHFactor, paramApproved, paramApprovedBy);
 END //
 
@@ -252,9 +252,36 @@ END //
 
 DELIMITER ;
 
-DROP procedure IF EXISTS `getAllRequests`;
+DROP procedure IF EXISTS `AddVolunteerEvent`;
 DELIMITER //
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getAllRequests`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AddVolunteerEvent`(IN paramEventID date, paramVolunteerID int)
 BEGIN
-	SELECT * FROM request;
+    INSERT into volunteerevents (eventID, volunteerID) values (paramEventID, paramvolunteerID);
+END //
+
+DELIMITER ;
+
+DROP procedure IF EXISTS `GetVolunteersEvent`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetVolunteersEvent`(IN paramEventID date)
+BEGIN
+    select * from volunteerevents where volunteerevents.eventID = paramEventID;
+END //
+
+DELIMITER ;
+
+DROP procedure IF EXISTS `AddEmployeeEvent`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AddEmployeeEvent`(IN paramEventID date, paramEmployeeID int)
+BEGIN
+    INSERT into employeeevents (eventID, employeeID) values (paramEventID, paramEmployeeID);
+END //
+
+DELIMITER ;
+
+DROP procedure IF EXISTS `GetEmployeeEvent`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetEmployeeEvent`(IN paramEventID date)
+BEGIN
+    select * from employeeevents where employeeevents.eventID = paramEventID;
 END //
