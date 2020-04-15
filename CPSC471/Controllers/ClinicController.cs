@@ -19,6 +19,15 @@ namespace CPSC471.Controllers
             return json;
         }
         
+        // GET /Clinic/GetDonorByBloodType?bloodType=A&rhf=positive
+        [HttpGet]
+        [Route("/Clinic/GetDonorByBloodType")]
+        public string GetDonorByBloodType(string bloodType, string rhf)
+        {
+            string json = DBcon.RetrieveDonorByBloodType(conn, bloodType, rhf, "getDonorByBloodType");
+            return json;
+        }
+        
         // GET /Clinic/GetDonorsByRHFactor?rhf=positive
         [HttpGet]
         [Route("/Clinic/GetDonorsByRHFactor")]

@@ -239,3 +239,13 @@ BEGIN
     Insert Into request (ClinicID, DateCompleted, HospitalID, Amount, BloodType, RHFactor, Approved, ApprovedBy) 
     values (paramClinicID, paramDateCompleted, paramHospitalID, paramAmount, paramBloodType, paramRHFactor, paramApproved, paramApprovedBy);
 END //
+
+DELIMITER ;
+
+DROP procedure IF EXISTS `getDonorByBloodType`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getDonorByBloodType`(IN paramBloodType varchar(2), paramRHF varchar(45))
+BEGIN
+	SELECT * FROM donor
+    WHERE BloodType = paramBloodType AND RHFactor = paramRHF;
+END //

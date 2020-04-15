@@ -25,7 +25,7 @@ namespace CPSC471.Models
         {
             MySqlConnection conn =
                 new MySqlConnection(
-                    "server=localhost;dns-srv=false;user id=root;password=password;database=bloodstorageapi");
+                    "server=localhost;dns-srv=false;user id=root;password=Olgaland13.;database=bloodstorageapi");
             try
             {
                 conn.Open();
@@ -594,6 +594,38 @@ namespace CPSC471.Models
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+            }
+        }
+
+        public static string RetrieveDonorByBloodType(MySqlConnection conn, string bloodType, string rhf, string stp)
+        {
+            MySqlCommand cmd = new MySqlCommand(stp, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                cmd.Parameters.AddWithValue("@paramBloodType", bloodType);
+                cmd.Parameters.AddWithValue("@paramRHF", rhf);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                List<Donor> donorList = new List<Donor>();
+                while (rdr.Read())
+                {
+                    donorList.Add(new Donor
+                    {
+                        DonorID = Convert.ToInt32(rdr[0]), Name = Convert.ToString(rdr[1]), 
+                        BloodType = Convert.ToString(rdr[2]), RHFactor = Convert.ToString(rdr[3]),
+                        Points = Convert.ToInt32(rdr[4])
+                    });
+                }
+                rdr.Close();
+                string json = JsonConvert.SerializeObject(new {results = donorList}, Formatting.Indented);
+                return json;
+            }
+            catch (Exception ex)
+            {
+                string s = ex.Message;
+                Console.WriteLine(s);
+                return s;
             }
         }
     }
